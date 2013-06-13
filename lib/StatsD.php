@@ -64,6 +64,15 @@ class StatsD {
 
 
     /**
+     * Decrement
+     */
+    public function decrement ($metrics, $delta = 1)
+    {
+        $this->increment($metrics, 0 - $delta);
+    }
+
+
+    /**
      * Timing
      */
     public function timing ($metric, $value)
