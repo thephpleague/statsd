@@ -1,0 +1,14 @@
+{
+    "name": "marcqualie/statsd",
+    "keywords": [
+        "library",
+        "statsd",
+        "graphite"
+    ],
+    "license": "MIT",
+    "autoload": {
+        "psr-0": {
+            "": "lib"
+        }
+    }
+}
