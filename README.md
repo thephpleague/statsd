@@ -37,6 +37,7 @@ OR
         'first.metric',
         'second.metric'
     ), 2);
+    $statsd->increment('web.clicks', 1, 0.5);
 
 
 ### Timers

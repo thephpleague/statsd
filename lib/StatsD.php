@@ -48,7 +48,7 @@ class StatsD {
     /**
      * Counters
      */
-    public function increment ($metrics, $delta = 1)
+    public function increment ($metrics, $delta = 1, $sampleRate = 1)
     {
         if ( ! is_array($metrics))
         {
@@ -57,13 +57,23 @@ class StatsD {
         $data = array();
         foreach ($metrics as $metric)
         {
-            $data[$metric] = $delta . '|c';
+            if ($sampleRate < 1)
+            {
+                if ((mt_rand() / mt_getrandmax()) <= $sampleRate)
+                {
+                    $data[$metric] = $delta . '|c|@' . $sampleRate;
+                }
+            }
+            else
+            {
+                $data[$metric] = $delta . '|c';
+            }
         }
         return $this->send($data);
     }
-    public function decrement ($metrics, $delta = 1)
+    public function decrement ($metrics, $delta = 1, $sampleRate = 1)
     {
-        return $this->increment($metrics, 0 - $delta);
+        return $this->increment($metrics, 0 - $delta, $sampleRate);
     }
 
 
