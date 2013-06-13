@@ -59,7 +59,7 @@ class StatsD {
         {
             $data[$metric] = $delta . '|c';
         }
-        $this->send($data);
+        return $this->send($data);
     }
 
 
@@ -68,16 +68,18 @@ class StatsD {
      */
     public function decrement ($metrics, $delta = 1)
     {
-        $this->increment($metrics, 0 - $delta);
+        return $this->increment($metrics, 0 - $delta);
     }
 
 
     /**
      * Timing
      */
-    public function timing ($metric, $value)
+    public function timing ($metric, $time)
     {
-
+        return $this->send(array(
+            $metric => $time . '|ms'
+        ));
     }
 
 
