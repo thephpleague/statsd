@@ -22,7 +22,7 @@ Manually
 
 ### Configuring
 
-    $statsd = new Statsd();
+    $statsd = new StatsD\Client();
     $statsd->configure(array(
         'host' => '127.0.0.1',
         'port' => 8125
@@ -30,7 +30,7 @@ Manually
 
 OR
 
-    $statsd1 = StatsD::instance('server1')->configure(array(...));
+    $statsd1 = StatsD\Client::instance('server1')->configure(array(...));
 
 
 ### Counters

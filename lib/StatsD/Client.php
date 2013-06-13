@@ -1,15 +1,18 @@
 <?php
 
-class StatsD {
+namespace StatsD;
+
+class Client
+{
 
 
     /**
      * Static Instance Reference
      */
     private static $instances = array();
-    public static function instance($name = 'default') {
-        if ( ! isset(self::$instances[$name]))
-        {
+    public static function instance($name = 'default')
+    {
+        if (! isset(self::$instances[$name])) {
             self::$instances[$name] = new StatsD();
         }
         return self::$instances[$name];
@@ -34,10 +37,8 @@ class StatsD {
      */
     public function configure (array $options = array())
     {
-        foreach ($options as $key => $value)
-        {
-            if (property_exists($this, $key))
-            {
+        foreach ($options as $key => $value) {
+            if (property_exists($this, $key)) {
                 $this->$key = $value;
             }
         }
@@ -50,22 +51,16 @@ class StatsD {
      */
     public function increment ($metrics, $delta = 1, $sampleRate = 1)
     {
-        if ( ! is_array($metrics))
-        {
+        if (! is_array($metrics)) {
             $metrics = array($metrics);
         }
         $data = array();
-        foreach ($metrics as $metric)
-        {
-            if ($sampleRate < 1)
-            {
-                if ((mt_rand() / mt_getrandmax()) <= $sampleRate)
-                {
+        foreach ($metrics as $metric) {
+            if ($sampleRate < 1) {
+                if ((mt_rand() / mt_getrandmax()) <= $sampleRate) {
                     $data[$metric] = $delta . '|c|@' . $sampleRate;
                 }
-            }
-            else
-            {
+            } else {
                 $data[$metric] = $delta . '|c';
             }
         }
@@ -78,13 +73,18 @@ class StatsD {
 
 
     /**
-     * Timers
+     * Timing
+     * @param  String $metric Metric to track
+     * @param  Float $time    Time in miliseconds
+     * @return boolean        True if data transfer is successful
      */
     public function timing ($metric, $time)
     {
-        return $this->send(array(
-            $metric => $time . '|ms'
-        ));
+        return $this->send(
+            array(
+                $metric => $time . '|ms'
+            )
+        );
     }
 
 
@@ -93,9 +93,11 @@ class StatsD {
      */
     public function gauge ($metric, $value)
     {
-        return $this->send(array(
-            $metric => $value . '|g'
-        ));
+        return $this->send(
+            array(
+                $metric => $value . '|g'
+            )
+        );
     }
 
 
@@ -107,12 +109,10 @@ class StatsD {
         try {
 
             $fp = fsockopen('udp://' . $this->host, $this->port, $errno, $errstr);
-            if ( ! $fp)
-            {
+            if (! $fp) {
                 return false;
             }
-            foreach ($data as $key => $value)
-            {
+            foreach ($data as $key => $value) {
                 fwrite($fp, $key . ':' . $value);
             }
             fclose($fp);
@@ -122,5 +122,4 @@ class StatsD {
             return false;
         }
     }
-
 }
