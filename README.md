@@ -7,7 +7,11 @@ A simple library for working with StatsD in PHP
 
 Via Composer
 
-    $ composer require marcqualie/statsd
+    {
+        "require": {
+            "marcqualie/statsd": ">=0.1"
+        }
+    }
 
 Manually
 
