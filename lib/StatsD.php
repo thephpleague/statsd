@@ -41,15 +41,25 @@ class StatsD {
                 $this->$key = $value;
             }
         }
+        return $this;
     }
 
 
     /**
      * Increment
      */
-    public function increment ($metric)
+    public function increment ($metrics, $delta = 1)
     {
-
+        if ( ! is_array($metrics))
+        {
+            $metrics = array($metrics);
+        }
+        $data = array();
+        foreach ($metrics as $metric)
+        {
+            $data[$metric] = $delta . '|c';
+        }
+        $this->send($data);
     }
 
 
@@ -65,9 +75,25 @@ class StatsD {
     /**
      * Send Data to StatsD Server
      */
-    private function send ()
+    private function send ($data)
     {
+        try {
 
+            $fp = fsockopen('udp://' . $this->host, $this->port, $errno, $errstr);
+            if ( ! $fp)
+            {
+                return false;
+            }
+            foreach ($data as $key => $value)
+            {
+                fwrite($fp, $key . ':' . $value);
+            }
+            fclose($fp);
+            return true;
+
+        } catch (Exception $e) {
+            return false;
+        }
     }
 
 }
