@@ -46,7 +46,7 @@ class StatsD {
 
 
     /**
-     * Increment
+     * Counters
      */
     public function increment ($metrics, $delta = 1)
     {
@@ -61,11 +61,6 @@ class StatsD {
         }
         return $this->send($data);
     }
-
-
-    /**
-     * Decrement
-     */
     public function decrement ($metrics, $delta = 1)
     {
         return $this->increment($metrics, 0 - $delta);
@@ -73,12 +68,23 @@ class StatsD {
 
 
     /**
-     * Timing
+     * Timers
      */
     public function timing ($metric, $time)
     {
         return $this->send(array(
             $metric => $time . '|ms'
+        ));
+    }
+
+
+    /**
+     * Gaugues
+     */
+    public function gauge ($metric, $value)
+    {
+        return $this->send(array(
+            $metric => $value . '|g'
         ));
     }
 

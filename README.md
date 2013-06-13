@@ -41,7 +41,12 @@ OR
 
 ### Timers
 
-    $statsd->timing('web.api.response_time', 256);
+    $statsd->timing('api.response_time', 256);
+
+
+### Gauges
+
+    $statsd->gauge('api.logged_in_users', 123456);
 
 
 ## Contributing
