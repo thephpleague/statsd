@@ -106,20 +106,21 @@ class Client
      */
     private function send($data)
     {
-        try {
 
-            $fp = fsockopen('udp://' . $this->host, $this->port, $errno, $errstr);
-            if (! $fp) {
-                return false;
-            }
-            foreach ($data as $key => $value) {
-                fwrite($fp, $key . ':' . $value);
-            }
-            fclose($fp);
-            return true;
-
-        } catch (Exception $e) {
-            return false;
+        $fp = @fsockopen('udp://' . $this->host, $this->port, $errno, $errstr);
+        if (! $fp) {
+            throw new ConnectionException($this, $errstr);
         }
+        foreach ($data as $key => $value) {
+            if (! fwrite($fp, $key . ':' . $value)) {
+                throw new ConnectionException(
+                    $this,
+                    'Could not write to ' . $this->host . ':' . $this->port . ' (' . $errno . ': ' . $errstr . ')'
+                );
+            }
+        }
+        fclose($fp);
+        return $this;
+
     }
 }
