@@ -35,7 +35,7 @@ class Client
     /**
      * Initialize Connection Details
      */
-    public function configure (array $options = array())
+    public function configure(array $options = array())
     {
         foreach ($options as $key => $value) {
             if (property_exists($this, $key)) {
@@ -49,7 +49,7 @@ class Client
     /**
      * Counters
      */
-    public function increment ($metrics, $delta = 1, $sampleRate = 1)
+    public function increment($metrics, $delta = 1, $sampleRate = 1)
     {
         if (! is_array($metrics)) {
             $metrics = array($metrics);
@@ -66,7 +66,7 @@ class Client
         }
         return $this->send($data);
     }
-    public function decrement ($metrics, $delta = 1, $sampleRate = 1)
+    public function decrement($metrics, $delta = 1, $sampleRate = 1)
     {
         return $this->increment($metrics, 0 - $delta, $sampleRate);
     }
@@ -78,7 +78,7 @@ class Client
      * @param  Float $time    Time in miliseconds
      * @return boolean        True if data transfer is successful
      */
-    public function timing ($metric, $time)
+    public function timing($metric, $time)
     {
         return $this->send(
             array(
@@ -91,7 +91,7 @@ class Client
     /**
      * Gaugues
      */
-    public function gauge ($metric, $value)
+    public function gauge($metric, $value)
     {
         return $this->send(
             array(
@@ -104,7 +104,7 @@ class Client
     /**
      * Send Data to StatsD Server
      */
-    private function send ($data)
+    private function send($data)
     {
         try {
 
