@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="vendor/autoload.php">
+    <testsuites>
+        <testsuite name="StatsD Test Suite">
+            <directory>test/StatsD</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">lib/Silex</directory>
+            <directory suffix=".php">lib/StatsD</directory>
+        </whitelist>
+    </filter>
+</phpunit>

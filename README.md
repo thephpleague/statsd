@@ -54,10 +54,16 @@ OR
     $statsd->gauge('api.logged_in_users', 123456);
 
 
+## Testing
+
+    phpunit
+
+
 ## Contributing
 
 - Fork the project
 - Create your own feature branch
 - Make your changes
+- Run the tests and add your own
 - Push to your own fork
 - Create pull request to origin repo

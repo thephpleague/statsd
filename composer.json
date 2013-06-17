@@ -7,11 +7,13 @@
     ],
     "license": "MIT",
     "require-dev": {
+        "phpunit/phpunit": "~3.7",
         "silex/silex": "~1.0"
     },
     "autoload": {
         "psr-0": {
-            "": "lib"
+            "": "lib",
+            "StatsD\\Test": "test"
         }
     }
 }
