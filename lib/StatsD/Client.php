@@ -19,8 +19,8 @@ class Client
     }
 
 
-    private $host = '127.0.0.1';
-    private $port = 8125;
+    protected $host = '127.0.0.1';
+    protected $port = 8125;
 
 
     /**
@@ -37,12 +37,35 @@ class Client
      */
     public function configure(array $options = array())
     {
-        foreach ($options as $key => $value) {
-            if (property_exists($this, $key)) {
-                $this->$key = $value;
+        if (isset($options['host'])) {
+            $this->host = $options['host'];
+        }
+        if (isset($options['port'])) {
+            $port = (int) $options['port'];
+            if (! $port || !is_numeric($port) || $port > 65535) {
+                throw new ConfigurationException($this, 'Port is out of range');
             }
+            $this->port = $port;
         }
         return $this;
+    }
+
+
+    /**
+     * Get Port
+     */
+    public function getHost()
+    {
+        return $this->host;
+    }
+
+
+    /**
+     * Get Host
+     */
+    public function getPort()
+    {
+        return $this->port;
     }
 
 
