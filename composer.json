@@ -6,9 +6,12 @@
         "graphite"
     ],
     "license": "MIT",
+    "require-dev": {
+        "silex/silex": "~1.0"
+    },
     "autoload": {
         "psr-0": {
-            "StatsD": "lib"
+            "": "lib"
         }
     }
 }
