@@ -18,13 +18,13 @@ class ConfigurationTest extends TestCase
 
 
     /**
-     * Non-integrar ports are not acceptable
+     * Non-integer ports are not acceptable
      * @expectedException StatsD\ConfigurationException
      */
     public function testStringPort()
     {
         $this->client->configure(array(
-            'port' => 'not-integar'
+            'port' => 'not-integer'
         ));
     }
 
