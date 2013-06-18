@@ -21,6 +21,7 @@ class Client
 
     protected $host = '127.0.0.1';
     protected $port = 8125;
+    protected $message = '';
 
 
     /**
@@ -66,6 +67,15 @@ class Client
     public function getPort()
     {
         return $this->port;
+    }
+
+
+    /**
+     * Get Last Message
+     */
+    public function getLastMessage()
+    {
+        return $this->message;
     }
 
 
@@ -135,7 +145,8 @@ class Client
             throw new ConnectionException($this, $errstr);
         }
         foreach ($data as $key => $value) {
-            if (! fwrite($fp, $key . ':' . $value)) {
+            $this->message = $key . ':' . $value;
+            if (! fwrite($fp, $this->message)) {
                 throw new ConnectionException(
                     $this,
                     'Could not write to ' . $this->host . ':' . $this->port . ' (' . $errno . ': ' . $errstr . ')'
