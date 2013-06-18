@@ -122,6 +122,19 @@ class Client
 
 
     /**
+     * Time a function
+     */
+    public function time($metric, $func)
+    {
+        $timer_start = microtime(true);
+        $func();
+        $timer_end = microtime(true);
+        $time = round(($timer_end - $timer_start) * 1000, 4);
+        return $this->timing($metric, $time);
+    }
+
+
+    /**
      * Gaugues
      */
     public function gauge($metric, $value)
