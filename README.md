@@ -54,9 +54,25 @@ OR
     $statsd->gauge('api.logged_in_users', 123456);
 
 
+## Timing Blocks
+
+    $statsd->time('api.dbcall', function () {
+        // this code will be timed and recoded in ms
+    });
+
+
 ## Testing
 
     phpunit
+
+
+## TODO
+
+- Namespacing
+- Documentation
+- More Framework Integration
+- Exception Handlers
+- Full Unit Test Coverage
 
 
 ## Contributing
