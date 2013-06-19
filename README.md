@@ -1,6 +1,6 @@
 # StatsD PHP Library
 
-A simple library for working with StatsD in PHP
+A simple library for working with StatsD in PHP.
 
 
 ## Install
@@ -77,9 +77,14 @@ OR
 
 ## Contributing
 
-- Fork the project
+- Fork the project from [Github](https://github.com/marcqualie/php-statsd)
 - Create your own feature branch
 - Make your changes
 - Run the tests and add your own
 - Push to your own fork
 - Create pull request to origin repo
+
+
+## License
+
+The MIT License (MIT). Please refer to [License File](https://github.com/marcqualie/php-statsd/blob/master/LICENSE) for more information
