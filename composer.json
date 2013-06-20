@@ -1,5 +1,6 @@
 {
     "name": "marcqualie/statsd",
+    "description": "A simple library for working with StatsD in PHP.",
     "keywords": [
         "library",
         "statsd",
@@ -10,7 +11,7 @@
     "authors": [
         {
             "name": "Marc Qualie",
-            "email": "hoard@marcqualie.com",
+            "email": "marc@marcqualie.com",
             "homepage": "http://marcqualie.com",
             "role": "Developer"
         }

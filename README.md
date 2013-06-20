@@ -57,7 +57,7 @@ OR
 ## Timing Blocks
 
     $statsd->time('api.dbcall', function () {
-        // this code will be timed and recoded in ms
+        // this code execution will be timed and recorded in ms
     });
 
 
