@@ -7,7 +7,7 @@ class ConfigurationTest extends TestCase
 
     /**
      * Large ports should be out of range
-     * @expectedException StatsD\ConfigurationException
+     * @expectedException StatsD\Exception\ConfigurationException
      */
     public function testLargePort()
     {
@@ -18,8 +18,8 @@ class ConfigurationTest extends TestCase
 
 
     /**
-     * Non-integrar ports are not acceptable
-     * @expectedException StatsD\ConfigurationException
+     * Non-integer ports are not acceptable
+     * @expectedException StatsD\Exception\ConfigurationException
      */
     public function testStringPort()
     {

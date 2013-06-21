@@ -2,6 +2,9 @@
 
 namespace StatsD;
 
+use StatsD\Exception\ConnectionException;
+use StatsD\Exception\ConfigurationException;
+
 class Client
 {
 
