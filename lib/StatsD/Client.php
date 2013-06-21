@@ -22,6 +22,7 @@ class Client
     protected $host = '127.0.0.1';
     protected $port = 8125;
     protected $message = '';
+    protected $namespace = '';
 
 
     /**
@@ -48,6 +49,9 @@ class Client
             }
             $this->port = $port;
         }
+        if (isset($options['namespace'])) {
+            $this->namespace = $options['namespace'];
+        }
         return $this;
     }
 
@@ -67,6 +71,15 @@ class Client
     public function getPort()
     {
         return $this->port;
+    }
+
+
+    /**
+     * Get Namespace
+     */
+    public function getNamespace()
+    {
+        return $this->namespace;
     }
 
 
@@ -158,7 +171,7 @@ class Client
             throw new ConnectionException($this, $errstr);
         }
         foreach ($data as $key => $value) {
-            $this->message = $key . ':' . $value;
+            $this->message = ($this->namespace ? $this->namespace . '.' : '') . $key . ':' . $value;
             if (! fwrite($fp, $this->message)) {
                 throw new ConnectionException(
                     $this,
