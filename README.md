@@ -25,7 +25,8 @@ Manually
     $statsd = new StatsD\Client();
     $statsd->configure(array(
         'host' => '127.0.0.1',
-        'port' => 8125
+        'port' => 8125,
+        'namespace' => 'example'
     ));
 
 OR
