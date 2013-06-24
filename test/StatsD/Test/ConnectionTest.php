@@ -5,11 +5,17 @@ namespace StatsD\Test;
 class ConnectionTest extends TestCase
 {
 
-    public function testConnection()
+    /**
+     * Non-integer ports are not acceptable
+     * @expectedException StatsD\Exception\ConnectionException
+     */
+    public function testInvalidHost()
     {
-
-        $this->assertTrue(true);
-
+        $this->client->configure(array(
+            'host' => 'hostdoesnotexiststalleverlol.stupidtld'
+        ));
+        $this->client->increment('test');
     }
+
 
 }
