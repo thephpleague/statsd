@@ -26,6 +26,9 @@ class StatsdServiceProvider implements ServiceProviderInterface
                 if (isset($app['statsd.port'])) {
                     $options['port'] = $app['statsd.port'];
                 }
+                if (isset($app['statsd.namespace'])) {
+                    $options['namespace'] = $app['statsd.namespace'];
+                }
 
                 // Create
                 $statsd = new StatsdClient();
