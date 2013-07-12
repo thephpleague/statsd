@@ -1,6 +1,6 @@
 # StatsD PHP Library
 
-A simple library for working with StatsD in PHP.
+A simple to use library with advanced features for working with StatsD in PHP.
 
 
 ## Install
@@ -12,10 +12,6 @@ Via Composer
             "marcqualie/statsd": ">=0.1"
         }
     }
-
-Manually
-
-    include '/path/tolib/StatsD.php';
 
 
 ## Usage
@@ -32,6 +28,7 @@ Manually
 OR
 
     $statsd1 = StatsD\Client::instance('server1')->configure(array(...));
+    $statsd2 = StatsD\Client::instance('server2')->configure(array(...));
 
 
 ### Counters
@@ -69,7 +66,7 @@ OR
 
 ## TODO
 
-- Namespacing
+- ~~Namespacing~~
 - Documentation
 - More Framework Integration
 - Exception Handlers
