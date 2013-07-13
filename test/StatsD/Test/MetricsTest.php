@@ -16,6 +16,17 @@ class MetricsTest extends TestCase
     }
 
 
+    public function testIncrementDelta()
+    {
+        $this->client->configure(array(
+            'host' => '127.0.0.1',
+            'port' => 8125,
+        ));
+        $this->client->increment('test_metric', 2);
+        $this->assertEquals($this->client->getLastMessage(), 'test_metric:2|c');
+    }
+
+
     public function testIncrementSample()
     {
         $this->client->configure(array(
