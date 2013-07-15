@@ -1,6 +1,6 @@
 # Silex Service Provider
 
-I've provided a very easy way to integrate this code into [Silex](http://silex.sensiolabs.com/).
+I've provided a very easy way to integrate this code into [Silex](http://silex.sensiolabs.org).
 
 ```php
 $app = new Silex\Application();
