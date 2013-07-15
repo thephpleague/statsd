@@ -34,4 +34,11 @@ class CounterTest extends TestCase
         $this->assertEquals('test_metric:-1|c', $this->client->getLastMessage());
     }
 
+
+    public function testDecrementDelta()
+    {
+        $this->client->decrement('test_metric', 3);
+        $this->assertEquals('test_metric:-3|c', $this->client->getLastMessage());
+    }
+
 }
