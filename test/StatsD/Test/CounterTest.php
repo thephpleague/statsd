@@ -2,7 +2,7 @@
 
 namespace StatsD\Test;
 
-class MetricsTest extends TestCase
+class CounterTest extends TestCase
 {
 
     public function testIncrement()
