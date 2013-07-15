@@ -12,11 +12,13 @@ class Client
     /**
      * Static Instance Reference
      */
-    private static $instances = array();
+    protected static $instances = array();
     public static function instance($name = 'default')
     {
         if (! isset(self::$instances[$name])) {
-            self::$instances[$name] = new StatsD();
+            $client = new Client($name);;
+            $client->setInstanceId($name);
+            self::$instances[$name] = $client;
         }
         return self::$instances[$name];
     }
@@ -31,9 +33,28 @@ class Client
     /**
      * Create new Instance
      */
-    public function __construct ()
+    protected $instance_id;
+    public function __construct()
     {
+        $this->instance_id = uniqid();
+    }
 
+
+    /**
+     * Set Instance ID
+     */
+    protected function setInstanceId($id)
+    {
+        $this->instance_id = $id;
+    }
+
+
+    /**
+     * Get string value of instance
+     */
+    public function __toString()
+    {
+        return 'StatsD\Client::[' . $this->instance_id . ']';
     }
 
 
