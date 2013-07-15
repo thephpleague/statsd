@@ -39,6 +39,10 @@ class StatsdServiceProvider implements ServiceProviderInterface
         );
     }
 
+
+    /**
+     * @codeCoverageIgnore
+     */
     public function boot(Application $app)
     {
     }
