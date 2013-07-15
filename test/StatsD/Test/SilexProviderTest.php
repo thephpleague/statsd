@@ -15,14 +15,35 @@ class SilexProviderTest extends TestCase
             'statsd.namespace' => 'test_namespace'
         ));
 
+        // Make sure is the right instance type
+        $this->assertTrue($app['statsd'] instanceof \StatsD\Client);
+
         // Make sure configuration is sorted
-        $this->assertEquals($app['statsd']->getHost(), 'localhost');
-        $this->assertEquals($app['statsd']->getPort(), 7890);
-        $this->assertEquals($app['statsd']->getNamespace(), 'test_namespace');
+        $this->assertEquals('localhost', $app['statsd']->getHost());
+        $this->assertEquals(7890, $app['statsd']->getPort());
+        $this->assertEquals('test_namespace', $app['statsd']->getNamespace());
 
         // Make sure messages are tracked properly
         $app['statsd']->increment('test_metric');
-        $this->assertEquals($app['statsd']->getLastMessage(), 'test_namespace.test_metric:1|c');
+        $this->assertEquals('test_namespace.test_metric:1|c', $app['statsd']->getLastMessage());
+
+    }
+
+
+    public function testProviderDefaults()
+    {
+
+        $app = new \Silex\Application();
+        $app->register(new \Silex\Provider\StatsdServiceProvider());
+
+        // Make sure configuration is sorted
+        $this->assertEquals('127.0.0.1', $app['statsd']->getHost());
+        $this->assertEquals(8125, $app['statsd']->getPort(), 8015);
+        $this->assertEquals('', $app['statsd']->getNamespace());
+
+        // Make sure messages are tracked properly
+        $app['statsd']->increment('test_metric', 2);
+        $this->assertEquals('test_metric:2|c', $app['statsd']->getLastMessage());
 
     }
 
