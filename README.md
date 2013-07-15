@@ -42,14 +42,14 @@ OR
     $statsd->increment('web.clicks', 1, 0.5);
 
 
-### Timers
-
-    $statsd->timing('api.response_time', 256);
-
-
 ### Gauges
 
     $statsd->gauge('api.logged_in_users', 123456);
+
+
+### Timers
+
+    $statsd->timing('api.response_time', 256);
 
 
 ## Timing Blocks
