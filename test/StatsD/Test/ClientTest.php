@@ -6,7 +6,7 @@ class ClientTest extends TestCase
 {
 
 
-    public function testnewInstance()
+    public function testNewInstance()
     {
         $client = new \StatsD\Client();
         $this->assertTrue($client instanceof \StatsD\Client);
