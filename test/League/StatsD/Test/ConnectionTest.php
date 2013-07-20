@@ -1,13 +1,13 @@
 <?php
 
-namespace StatsD\Test;
+namespace League\StatsD\Test;
 
 class ConnectionTest extends TestCase
 {
 
     /**
      * Non-integer ports are not acceptable
-     * @expectedException StatsD\Exception\ConnectionException
+     * @expectedException League\StatsD\Exception\ConnectionException
      */
     public function testInvalidHost()
     {

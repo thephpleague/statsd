@@ -1,6 +1,6 @@
 <?php
 
-namespace StatsD\Test;
+namespace League\StatsD\Test;
 
 class CounterTest extends TestCase
 {

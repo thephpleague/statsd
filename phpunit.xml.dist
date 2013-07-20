@@ -2,13 +2,13 @@
 <phpunit bootstrap="vendor/autoload.php">
     <testsuites>
         <testsuite name="StatsD Test Suite">
-            <directory>test/StatsD</directory>
+            <directory>test/League/StatsD</directory>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist>
             <directory suffix=".php">lib/Silex</directory>
-            <directory suffix=".php">lib/StatsD</directory>
+            <directory suffix=".php">lib/League/StatsD</directory>
         </whitelist>
     </filter>
 </phpunit>

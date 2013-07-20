@@ -1,6 +1,7 @@
 <?php
 
-namespace StatsD\Test;
+namespace League\StatsD\Test;
+use League\StatsD\Client;
 
 class SilexProviderTest extends TestCase
 {
@@ -16,7 +17,7 @@ class SilexProviderTest extends TestCase
         ));
 
         // Make sure is the right instance type
-        $this->assertTrue($app['statsd'] instanceof \StatsD\Client);
+        $this->assertTrue($app['statsd'] instanceof Client);
 
         // Make sure configuration is sorted
         $this->assertEquals('localhost', $app['statsd']->getHost());

@@ -1,6 +1,9 @@
 <?php
 
-namespace StatsD\Test;
+namespace League\StatsD\Test;
+use League\StatsD\Exception\ConnectionException;
+use League\StatsD\Exception\ConfigurationException;
+use League\StatsD\Client;
 
 class ExceptionTest extends TestCase
 {
@@ -9,10 +12,10 @@ class ExceptionTest extends TestCase
     public function testConnectionException()
     {
         try {
-            throw new \StatsD\Exception\ConnectionException($this->client, 'Could not connect');
-        } catch (\StatsD\Exception\ConnectionException $e) {
+            throw new ConnectionException($this->client, 'Could not connect');
+        } catch (ConnectionException $e) {
             $client = $e->getInstance();
-            $this->assertTrue($client instanceof \StatsD\Client);
+            $this->assertTrue($client instanceof Client);
             $this->assertEquals('Could not connect', $e->getMessage());
             return;
         }
@@ -23,10 +26,10 @@ class ExceptionTest extends TestCase
     public function testConfigurationException()
     {
         try {
-            throw new \StatsD\Exception\ConfigurationException($this->client, 'Configuration error');
-        } catch (\StatsD\Exception\ConfigurationException $e) {
+            throw new ConfigurationException($this->client, 'Configuration error');
+        } catch (ConfigurationException $e) {
             $client = $e->getInstance();
-            $this->assertTrue($client instanceof \StatsD\Client);
+            $this->assertTrue($client instanceof Client);
             $this->assertEquals('Configuration error', $e->getMessage());
             return;
         }

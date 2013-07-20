@@ -1,13 +1,13 @@
 <?php
 
-namespace StatsD\Test;
+namespace League\StatsD\Test;
 
 class ConfigurationTest extends TestCase
 {
 
     /**
      * Large ports should be out of range
-     * @expectedException StatsD\Exception\ConfigurationException
+     * @expectedException League\StatsD\Exception\ConfigurationException
      */
     public function testLargePort()
     {
@@ -19,7 +19,7 @@ class ConfigurationTest extends TestCase
 
     /**
      * Non-integer ports are not acceptable
-     * @expectedException StatsD\Exception\ConfigurationException
+     * @expectedException League\StatsD\Exception\ConfigurationException
      */
     public function testStringPort()
     {

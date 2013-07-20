@@ -1,8 +1,8 @@
 <?php
 
-namespace StatsD\Test;
+namespace League\StatsD\Test;
 use PHPUnit_Framework_TestCase;
-use StatsD;
+use League\StatsD\Client;
 
 class TestCase extends PHPUnit_Framework_TestCase
 {
@@ -12,7 +12,7 @@ class TestCase extends PHPUnit_Framework_TestCase
     public function setUp()
     {
 
-        $this->client = new StatsD\Client();
+        $this->client = new Client();
         $this->client->configure();
 
     }

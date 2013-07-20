@@ -1,5 +1,5 @@
 {
-    "name": "marcqualie/statsd",
+    "name": "league/statsd",
     "description": "A simple library for working with StatsD in PHP.",
     "keywords": [
         "library",
@@ -23,7 +23,7 @@
     "autoload": {
         "psr-0": {
             "": "lib",
-            "StatsD\\Test": "test"
+            "League\\StatsD\\Test": "test"
         }
     }
 }

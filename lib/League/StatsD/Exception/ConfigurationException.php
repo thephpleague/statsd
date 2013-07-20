@@ -1,8 +1,8 @@
 <?php
 
-namespace StatsD\Exception;
+namespace League\StatsD\Exception;
 
-class ConnectionException extends \Exception
+class ConfigurationException extends \Exception
 {
 
     protected $instance;

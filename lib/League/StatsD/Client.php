@@ -1,9 +1,8 @@
 <?php
 
-namespace StatsD;
-
-use StatsD\Exception\ConnectionException;
-use StatsD\Exception\ConfigurationException;
+namespace League\StatsD;
+use League\StatsD\Exception\ConnectionException;
+use League\StatsD\Exception\ConfigurationException;
 
 class Client
 {
