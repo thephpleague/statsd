@@ -196,12 +196,7 @@ class Client
         }
         foreach ($data as $key => $value) {
             $this->message = ($this->namespace ? $this->namespace . '.' : '') . $key . ':' . $value;
-            if (! fwrite($fp, $this->message)) {
-                throw new ConnectionException(
-                    $this,
-                    'Could not write to ' . $this->host . ':' . $this->port . ' (' . $errno . ': ' . $errstr . ')'
-                );
-            }
+            @fwrite($fp, $this->message);
         }
         fclose($fp);
         return $this;
