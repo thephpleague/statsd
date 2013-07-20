@@ -6,7 +6,7 @@
         "statsd",
         "graphite"
     ],
-    "homepage": "https://github.com/marcqualie/php-statsd",
+    "homepage": "https://github.com/php-loep/statsd",
     "license": "MIT",
     "authors": [
         {

@@ -67,23 +67,23 @@ OR
 ## TODO
 
 - ~~Namespacing~~
-- Documentation
+- ~~Full Unit Test Coverage~~
+- ~~Exception Handlers~~
+- Extensive Documentation
 - More Framework Integration
-- Exception Handlers
-- Full Unit Test Coverage
+
+
+## Contributing
+
+Please see [CONTRIBUTING](https://github.com/php-loep/statsd/blob/master/CONTRIBUTING.md) for details.
 
 
 ## Credits
 
 - [Marc Qualie](https://github.com/marcqualie)
-- [All Contributors](https://github.com/php-loep/php-statsd/contributors)
-
-
-## Contributing
-
-Please see [CONTRIBUTING](https://github.com/php-loep/php-statsd/blob/master/CONTRIBUTING.md) for details.
+- [All Contributors](https://github.com/php-loep/statsd/contributors)
 
 
 ## License
 
-The MIT License (MIT). Please refer to [License File](https://github.com/league/php-statsd/blob/master/LICENSE) for more information
+The MIT License (MIT). Please see [License File](https://github.com/php-loep/statsd/blob/master/LICENSE) for more information.
