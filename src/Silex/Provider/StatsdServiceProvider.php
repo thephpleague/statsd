@@ -6,13 +6,18 @@ use Silex\Application;
 use Silex\ServiceProviderInterface;
 use League\StatsD\Client as StatsdClient;
 
+
+/**
+ * StatsD Service provider for Silex
+ *
+ * @author Marc Qualie <marc@marcqualie.com>
+ */
 class StatsdServiceProvider implements ServiceProviderInterface
 {
 
     /**
      * Register Service Provider
-     * @param  Application $app Silex application instance
-     * @return StatsD\Client StatsD Client instance
+     * @param Application $app Silex application instance
      */
     public function register(Application $app)
     {
@@ -42,6 +47,8 @@ class StatsdServiceProvider implements ServiceProviderInterface
 
 
     /**
+     * Boot Method
+     * @param Aplication $app Silex application instance
      * @codeCoverageIgnore
      */
     public function boot(Application $app)
