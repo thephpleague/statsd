@@ -8,11 +8,19 @@ use League\StatsD\Exception\ConfigurationException;
 class Client
 {
 
+    protected static $instances = array();
+    protected $instance_id;
+    protected $host = '127.0.0.1';
+    protected $port = 8125;
+    protected $message = '';
+    protected $namespace = '';
+
 
     /**
-     * Static Instance Reference
+     * Singleton Reference
+     * @param  string $name Instance name
+     * @return League\StatsD\Client Client instance
      */
-    protected static $instances = array();
     public static function instance($name = 'default')
     {
         if (! isset(self::$instances[$name])) {
@@ -24,16 +32,9 @@ class Client
     }
 
 
-    protected $host = '127.0.0.1';
-    protected $port = 8125;
-    protected $message = '';
-    protected $namespace = '';
-
-
     /**
-     * Create new Instance
+     * Create a new instance
      */
-    protected $instance_id;
     public function __construct()
     {
         $this->instance_id = uniqid();
@@ -42,15 +43,19 @@ class Client
 
     /**
      * Set Instance ID
+     * @param  string $id Set the ID for this instance
+     * @return string The new instance ID
      */
     protected function setInstanceId($id)
     {
         $this->instance_id = $id;
+        return $id;
     }
 
 
     /**
      * Get string value of instance
+     * @return string String representation of this instance
      */
     public function __toString()
     {
@@ -60,6 +65,8 @@ class Client
 
     /**
      * Initialize Connection Details
+     * @param array $options Configuration options
+     * @return League\StatsD\Client This instance
      */
     public function configure(array $options = array())
     {
@@ -81,7 +88,8 @@ class Client
 
 
     /**
-     * Get Port
+     * Get Host
+     * @return string Host
      */
     public function getHost()
     {
@@ -90,7 +98,8 @@ class Client
 
 
     /**
-     * Get Host
+     * Get Port
+     * @return string Port
      */
     public function getPort()
     {
@@ -100,6 +109,7 @@ class Client
 
     /**
      * Get Namespace
+     * @return string Namespace
      */
     public function getNamespace()
     {
@@ -109,6 +119,7 @@ class Client
 
     /**
      * Get Last Message
+     * @return string Last message sent to server
      */
     public function getLastMessage()
     {
