@@ -1,6 +1,9 @@
 # StatsD PHP Library
 
 [![Build Status](https://travis-ci.org/php-loep/statsd.png?branch=master)](https://travis-ci.org/php-loep/statsd)
+[![Total Downloads](https://poser.pugx.org/league/statsd/downloads.png)](https://packagist.org/packages/league/statsd)
+[![Latest Stable Version](https://poser.pugx.org/league/statsd/v/stable.png)](https://packagist.org/packages/league/statsd)
+
 
 A library for working with StatsD in PHP.
 
