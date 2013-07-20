@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-0": {
-            "": "lib",
+            "": "src",
             "League\\StatsD\\Test": "test"
         }
     }

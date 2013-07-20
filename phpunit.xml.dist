@@ -7,8 +7,8 @@
     </testsuites>
     <filter>
         <whitelist>
-            <directory suffix=".php">lib/Silex</directory>
-            <directory suffix=".php">lib/League/StatsD</directory>
+            <directory suffix=".php">src/Silex</directory>
+            <directory suffix=".php">src/League/StatsD</directory>
         </whitelist>
     </filter>
 </phpunit>
