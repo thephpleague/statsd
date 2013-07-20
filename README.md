@@ -1,6 +1,8 @@
 # StatsD PHP Library
 
-A simple to use library with advanced features for working with StatsD in PHP.
+[![Build Status](https://travis-ci.org/php-loep/statsd.png?branch=master)](https://travis-ci.org/php-loep/statsd)
+
+A library for working with StatsD in PHP.
 
 
 ## Install
