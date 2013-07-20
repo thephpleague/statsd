@@ -81,12 +81,7 @@ OR
 
 ## Contributing
 
-- Fork the project from [Github](https://github.com/php-loep/php-statsd)
-- Create your own feature branch
-- Make your changes
-- Run the tests and add your own
-- Push to your own fork
-- Create pull request to origin repo
+Please see [CONTRIBUTING](https://github.com/php-loep/php-statsd/blob/master/CONTRIBUTING.md) for details.
 
 
 ## License
