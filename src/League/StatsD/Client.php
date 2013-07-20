@@ -5,21 +5,60 @@ namespace League\StatsD;
 use League\StatsD\Exception\ConnectionException;
 use League\StatsD\Exception\ConfigurationException;
 
+/**
+ * StatsD Client Class
+ *
+ * @author Marc Qualie <marc@marcqualie.com>
+ */
 class Client
 {
 
+    /**
+     * Instance instances array
+     * @var array
+     */
     protected static $instances = array();
+
+
+    /**
+     * Instance ID
+     * @var string
+     */
     protected $instance_id;
+
+
+    /**
+     * Server Host
+     * @var string
+     */
     protected $host = '127.0.0.1';
+
+
+    /**
+     * Server Port
+     * @var integer
+     */
     protected $port = 8125;
+
+
+    /**
+     * Last message sent to the server
+     * @var string
+     */
     protected $message = '';
+
+
+    /**
+     * Class namespace
+     * @var string
+     */
     protected $namespace = '';
 
 
     /**
      * Singleton Reference
      * @param  string $name Instance name
-     * @return League\StatsD\Client Client instance
+     * @return Client Client instance
      */
     public static function instance($name = 'default')
     {
@@ -66,7 +105,7 @@ class Client
     /**
      * Initialize Connection Details
      * @param array $options Configuration options
-     * @return League\StatsD\Client This instance
+     * @return Client This instance
      */
     public function configure(array $options = array())
     {
@@ -128,7 +167,11 @@ class Client
 
 
     /**
-     * Counters
+     * Increment a metric
+     * @param  string|array $metrics Metric(s) to increment
+     * @param  int $delta Value to decrement the metric by
+     * @param  int $sampleRate Sample rate of metric
+     * @return Client This instance
      */
     public function increment($metrics, $delta = 1, $sampleRate = 1)
     {
@@ -147,6 +190,15 @@ class Client
         }
         return $this->send($data);
     }
+
+
+    /**
+     * Decrement a metric
+     * @param  string|array $metrics Metric(s) to decrement
+     * @param  int $delta Value to increment the metric by
+     * @param  int $sampleRate Sample rate of metric
+     * @return Client This instance
+     */
     public function decrement($metrics, $delta = 1, $sampleRate = 1)
     {
         return $this->increment($metrics, 0 - $delta, $sampleRate);
@@ -155,9 +207,9 @@ class Client
 
     /**
      * Timing
-     * @param  String $metric Metric to track
-     * @param  Float $time    Time in miliseconds
-     * @return boolean        True if data transfer is successful
+     * @param  string $metric Metric to track
+     * @param  float $time Time in miliseconds
+     * @return bool True if data transfer is successful
      */
     public function timing($metric, $time)
     {
@@ -171,6 +223,8 @@ class Client
 
     /**
      * Time a function
+     * @param  string $metric Metric to time
+     * @param  callable Function to record
      */
     public function time($metric, $func)
     {
@@ -183,7 +237,10 @@ class Client
 
 
     /**
-     * Gaugues
+     * Gauges
+     * @param  string $metric Metric to gauge
+     * @param  int $value Set the value of the gauge
+     * @return Client This instance
      */
     public function gauge($metric, $value)
     {
@@ -197,8 +254,10 @@ class Client
 
     /**
      * Send Data to StatsD Server
+     * @param  array $data A list of messages to send to the server
+     * @return Client This instance
      */
-    private function send($data)
+    protected function send($data)
     {
 
         $fp = @fsockopen('udp://' . $this->host, $this->port, $errno, $errstr);
