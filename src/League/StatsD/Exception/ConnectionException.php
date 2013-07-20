@@ -2,11 +2,27 @@
 
 namespace League\StatsD\Exception;
 
+use League\StatsD\Client;
+
+/**
+ * Connection Exception Class
+ */
 class ConnectionException extends \Exception
 {
 
+
+    /**
+     * Client instance that threw the exception
+     * @var Client
+     */
     protected $instance;
 
+
+    /**
+     * Create new instance
+     * @param Client $instance Client instance that threw the exception
+     * @param string $message Exception message
+     */
     public function __construct($instance, $message)
     {
         $this->instance = $instance;
@@ -14,9 +30,8 @@ class ConnectionException extends \Exception
     }
 
     /**
-     * Get Instance
-     * Really useful when using multiple instances and you're not sure which one is caught
-     * @return StatsD\Client Client instance
+     * Get Client instance that threw the exception
+     * @return Client Client instance
      */
     public function getInstance()
     {
