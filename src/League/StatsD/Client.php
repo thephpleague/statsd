@@ -1,6 +1,7 @@
 <?php
 
 namespace League\StatsD;
+
 use League\StatsD\Exception\ConnectionException;
 use League\StatsD\Exception\ConfigurationException;
 
@@ -15,7 +16,7 @@ class Client
     public static function instance($name = 'default')
     {
         if (! isset(self::$instances[$name])) {
-            $client = new Client($name);;
+            $client = new Client($name);
             $client->setInstanceId($name);
             self::$instances[$name] = $client;
         }

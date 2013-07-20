@@ -1,6 +1,7 @@
 <?php
 
 namespace Silex\Provider;
+
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 use League\StatsD\Client as StatsdClient;
@@ -46,5 +47,4 @@ class StatsdServiceProvider implements ServiceProviderInterface
     public function boot(Application $app)
     {
     }
-
 }
