@@ -12,7 +12,7 @@ Via Composer
 ```json
 {
     "require": {
-        "marcqualie/statsd": "~0.1"
+        "league/statsd": "~0.1"
     }
 }
 ```
@@ -23,7 +23,7 @@ Via Composer
 Creating a new instance within your application is very easy.
 
 ```php
-$statsd = new StatsD\Client();
+$statsd = new League\StatsD\Client();
 $statsd->configure(array(
     'host' => 'localhost',
     'port' => 8125,

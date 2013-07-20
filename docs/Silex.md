@@ -4,7 +4,7 @@ I've provided a very easy way to integrate this code into [Silex](http://silex.s
 
 ```php
 $app = new Silex\Application();
-$app->register(new Silex\Provider\SilexServiceProvider(), array(
+$app->register(new Silex\Provider\StatsdServiceProvider(), array(
     'statsd.host' => 'localhost',
     'statsd.port' => 8125,
     'statsd.namespace' => 'ns1'

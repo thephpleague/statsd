@@ -9,7 +9,7 @@ Via Composer
 
     {
         "require": {
-            "marcqualie/statsd": ">=0.1"
+            "league/statsd": ">=0.1"
         }
     }
 
@@ -18,7 +18,7 @@ Via Composer
 
 ### Configuring
 
-    $statsd = new StatsD\Client();
+    $statsd = new League\StatsD\Client();
     $statsd->configure(array(
         'host' => '127.0.0.1',
         'port' => 8125,
@@ -73,9 +73,15 @@ OR
 - Full Unit Test Coverage
 
 
+## Credits
+
+- [Marc Qualie](https://github.com/marcqualie)
+- [All Contributors](https://github.com/php-loep/php-statsd/contributors)
+
+
 ## Contributing
 
-- Fork the project from [Github](https://github.com/marcqualie/php-statsd)
+- Fork the project from [Github](https://github.com/php-loep/php-statsd)
 - Create your own feature branch
 - Make your changes
 - Run the tests and add your own
@@ -85,4 +91,4 @@ OR
 
 ## License
 
-The MIT License (MIT). Please refer to [License File](https://github.com/marcqualie/php-statsd/blob/master/LICENSE) for more information
+The MIT License (MIT). Please refer to [License File](https://github.com/league/php-statsd/blob/master/LICENSE) for more information
