@@ -6,7 +6,6 @@ use Silex\Application;
 use Silex\ServiceProviderInterface;
 use League\StatsD\Client as StatsdClient;
 
-
 /**
  * StatsD Service provider for Silex
  *
