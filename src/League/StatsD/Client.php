@@ -106,6 +106,7 @@ class Client
      * Initialize Connection Details
      * @param array $options Configuration options
      * @return Client This instance
+     * @throws ConfigurationException If port is invalid
      */
     public function configure(array $options = array())
     {
@@ -256,6 +257,7 @@ class Client
      * Send Data to StatsD Server
      * @param  array $data A list of messages to send to the server
      * @return Client This instance
+     * @throws ConnectionException If there is a connection problem with the host
      */
     protected function send($data)
     {
