@@ -17,13 +17,12 @@
         }
     ],
     "require-dev": {
-        "phpunit/phpunit": "~3.7",
         "silex/silex": "~1.0"
     },
     "autoload": {
         "psr-0": {
-            "": "src",
-            "League\\StatsD\\Test": "test"
+            "League\\StatsD": ["src", "test"],
+            "Silex\\Provider": "src"
         }
     }
 }
