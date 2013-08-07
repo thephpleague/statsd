@@ -2,7 +2,7 @@
 <phpunit bootstrap="vendor/autoload.php">
     <testsuites>
         <testsuite name="StatsD Test Suite">
-            <directory>test/League/StatsD</directory>
+            <directory>tests/League/StatsD</directory>
         </testsuite>
     </testsuites>
     <filter>
