@@ -21,7 +21,7 @@
     },
     "autoload": {
         "psr-0": {
-            "League\\StatsD": ["src", "tests"],
+            "League": ["src", "tests"],
             "Silex\\Provider": "src"
         }
     }
