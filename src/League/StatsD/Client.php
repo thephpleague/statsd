@@ -266,10 +266,13 @@ class Client
         if (! $fp) {
             throw new ConnectionException($this, $errstr);
         }
+        $this->messages = array();
+        $prefix = $this->namespace ? $this->namespace . '.' : '';
         foreach ($data as $key => $value) {
-            $this->message = ($this->namespace ? $this->namespace . '.' : '') . $key . ':' . $value;
-            @fwrite($fp, $this->message);
+            $this->messages[] = $prefix . $key . ':' . $value;
         }
+        $this->message = implode("\n", $this->messages);
+        @fwrite($fp, $this->message);
         fclose($fp);
         return $this;
 
