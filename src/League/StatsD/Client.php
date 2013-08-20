@@ -227,7 +227,7 @@ class Client
      * @param  string $metric Metric to time
      * @param  callable Function to record
      */
-    public function time($metric, $func)
+    public function time($metric, Callable $func)
     {
         $timer_start = microtime(true);
         $func();
@@ -259,7 +259,7 @@ class Client
      * @return Client This instance
      * @throws ConnectionException If there is a connection problem with the host
      */
-    protected function send($data)
+    protected function send(array $data)
     {
 
         $fp = @fsockopen('udp://' . $this->host, $this->port, $errno, $errstr);
