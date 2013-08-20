@@ -227,7 +227,7 @@ class Client
      * @param  string $metric Metric to time
      * @param  callable Function to record
      */
-    public function time($metric, Callable $func)
+    public function time($metric, $func)
     {
         $timer_start = microtime(true);
         $func();
