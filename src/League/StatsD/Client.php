@@ -72,9 +72,9 @@ class Client
     /**
      * Create a new instance
      */
-    public function __construct($id = null)
+    public function __construct($instance_id = null)
     {
-        $this->instance_id = $id ?: uniqid();
+        $this->instance_id = $instance_id ?: uniqid();
     }
 
 
@@ -248,9 +248,9 @@ class Client
     protected function send(array $data)
     {
 
-        $fp = @fsockopen('udp://' . $this->host, $this->port, $errno, $errstr);
-        if (! $fp) {
-            throw new ConnectionException($this, $errstr);
+        $socket = @fsockopen('udp://' . $this->host, $this->port, $errno, $errstr);
+        if (! $socket) {
+            throw new ConnectionException($this, '(' . $errno . ') ' . $errstr);
         }
         $this->messages = array();
         $prefix = $this->namespace ? $this->namespace . '.' : '';
@@ -258,8 +258,8 @@ class Client
             $this->messages[] = $prefix . $key . ':' . $value;
         }
         $this->message = implode("\n", $this->messages);
-        @fwrite($fp, $this->message);
-        fclose($fp);
+        @fwrite($socket, $this->message);
+        fclose($socket);
         return $this;
 
     }
