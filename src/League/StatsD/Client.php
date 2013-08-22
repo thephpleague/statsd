@@ -63,9 +63,7 @@ class Client
     public static function instance($name = 'default')
     {
         if (! isset(self::$instances[$name])) {
-            $client = new Client($name);
-            $client->setInstanceId($name);
-            self::$instances[$name] = $client;
+            self::$instances[$name] = new Client($name);
         }
         return self::$instances[$name];
     }
@@ -74,21 +72,9 @@ class Client
     /**
      * Create a new instance
      */
-    public function __construct()
+    public function __construct($id = null)
     {
-        $this->instance_id = uniqid();
-    }
-
-
-    /**
-     * Set Instance ID
-     * @param  string $id Set the ID for this instance
-     * @return string The new instance ID
-     */
-    protected function setInstanceId($id)
-    {
-        $this->instance_id = $id;
-        return $id;
+        $this->instance_id = $id ?: uniqid();
     }
 
 
@@ -176,16 +162,16 @@ class Client
      */
     public function increment($metrics, $delta = 1, $sampleRate = 1)
     {
-        if (! is_array($metrics)) {
-            $metrics = array($metrics);
-        }
+        $metrics = (array) $metrics;
         $data = array();
-        foreach ($metrics as $metric) {
-            if ($sampleRate < 1) {
+        if ($sampleRate < 1) {
+            foreach ($metrics as $metric) {
                 if ((mt_rand() / mt_getrandmax()) <= $sampleRate) {
                     $data[$metric] = $delta . '|c|@' . $sampleRate;
                 }
-            } else {
+            }
+        } else {
+            foreach ($metrics as $metric) {
                 $data[$metric] = $delta . '|c';
             }
         }
