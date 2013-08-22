@@ -14,7 +14,7 @@ Via Composer
 
     {
         "require": {
-            "league/statsd": ">=0.1"
+            "league/statsd": "dev-master"
         }
     }
 
