@@ -1,6 +1,8 @@
 <?php
 
 namespace League\StatsD\Test;
+use Silex\Application;
+use League\StatsD\Provider\Silex\StatsdServiceProvider;
 use League\StatsD\Client;
 
 class SilexProviderTest extends TestCase
@@ -9,8 +11,8 @@ class SilexProviderTest extends TestCase
     public function testProvider()
     {
 
-        $app = new \Silex\Application();
-        $app->register(new \Silex\Provider\StatsdServiceProvider(), array(
+        $app = new Application();
+        $app->register(new StatsdServiceProvider(), array(
             'statsd.host' => 'localhost',
             'statsd.port' => 7890,
             'statsd.namespace' => 'test_namespace'
@@ -34,8 +36,8 @@ class SilexProviderTest extends TestCase
     public function testProviderDefaults()
     {
 
-        $app = new \Silex\Application();
-        $app->register(new \Silex\Provider\StatsdServiceProvider());
+        $app = new Application();
+        $app->register(new StatsdServiceProvider());
 
         // Make sure configuration is sorted
         $this->assertEquals('127.0.0.1', $app['statsd']->getHost());

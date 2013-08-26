@@ -1,6 +1,6 @@
 <?php
 
-namespace Silex\Provider;
+namespace League\StatsD\Provider\Silex;
 
 use Silex\Application;
 use Silex\ServiceProviderInterface;
