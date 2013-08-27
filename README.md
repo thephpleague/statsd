@@ -12,57 +12,65 @@ A library for working with StatsD in PHP.
 
 Via Composer
 
-    {
-        "require": {
-            "league/statsd": "~1.0"
-        }
+```json
+{
+    "require": {
+        "league/statsd": "~1.0"
     }
-
+}
+```
 
 ## Usage
 
 ### Configuring
 
-    $statsd = new League\StatsD\Client();
-    $statsd->configure(array(
-        'host' => '127.0.0.1',
-        'port' => 8125,
-        'namespace' => 'example'
-    ));
+```php
+$statsd = new League\StatsD\Client();
+$statsd->configure(array(
+    'host' => '127.0.0.1',
+    'port' => 8125,
+    'namespace' => 'example'
+));
+```
 
 OR
 
-    $statsd1 = StatsD\Client::instance('server1')->configure(array(...));
-    $statsd2 = StatsD\Client::instance('server2')->configure(array(...));
-
+```php
+$statsd1 = StatsD\Client::instance('server1')->configure(array(...));
+$statsd2 = StatsD\Client::instance('server2')->configure(array(...));
+```
 
 ### Counters
 
-    $statsd->increment('web.pageview');
-    $statsd->decrement('storage.remaining');
-    $statsd->increment(array(
-        'first.metric',
-        'second.metric'
-    ), 2);
-    $statsd->increment('web.clicks', 1, 0.5);
-
+```php
+$statsd->increment('web.pageview');
+$statsd->decrement('storage.remaining');
+$statsd->increment(array(
+    'first.metric',
+    'second.metric'
+), 2);
+$statsd->increment('web.clicks', 1, 0.5);
+```
 
 ### Gauges
 
-    $statsd->gauge('api.logged_in_users', 123456);
-
+```php
+$statsd->gauge('api.logged_in_users', 123456);
+```
 
 ### Timers
 
-    $statsd->timing('api.response_time', 256);
-
+```php
+$statsd->timing('api.response_time', 256);
+```
 
 ## Timing Blocks
 
-    $statsd->time('api.dbcall', function () {
-        // this code execution will be timed and recorded in ms
-    });
-
+```php
+$statsd->time('api.dbcall', function () {
+    // this code execution will be timed and recorded in ms
+});
+```
 
 ## Testing
 
