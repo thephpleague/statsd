@@ -91,3 +91,7 @@ Please see [CONTRIBUTING](https://github.com/php-loep/statsd/blob/master/CONTRIB
 ## License
 
 The MIT License (MIT). Please see [License File](https://github.com/php-loep/statsd/blob/master/LICENSE) for more information.
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/php-loep/statsd/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
