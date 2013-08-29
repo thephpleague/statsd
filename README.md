@@ -77,15 +77,6 @@ $statsd->time('api.dbcall', function () {
     phpunit
 
 
-## TODO
-
-- ~~Namespacing~~
-- ~~Full Unit Test Coverage~~
-- ~~Exception Handlers~~
-- Extensive Documentation
-- More Framework Integration
-
-
 ## Contributing
 
 Please see [CONTRIBUTING](https://github.com/php-loep/statsd/blob/master/CONTRIBUTING.md) for details.
