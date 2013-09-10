@@ -12,7 +12,7 @@ Via Composer
 ```json
 {
     "require": {
-        "league/statsd": "~0.1"
+        "league/statsd": "~1.0"
     }
 }
 ```
