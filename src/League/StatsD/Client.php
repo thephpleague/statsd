@@ -71,6 +71,7 @@ class Client
 
     /**
      * Create a new instance
+     * @return void
      */
     public function __construct($instance_id = null)
     {
@@ -212,6 +213,7 @@ class Client
      * Time a function
      * @param  string $metric Metric to time
      * @param  callable Function to record
+     * @return bool True if data transfer is successful
      */
     public function time($metric, $func)
     {

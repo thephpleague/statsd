@@ -16,9 +16,6 @@
             "role": "Developer"
         }
     ],
-    "require-dev": {
-        "silex/silex": "~1.0"
-    },
     "autoload": {
         "psr-0": {
             "League": [
