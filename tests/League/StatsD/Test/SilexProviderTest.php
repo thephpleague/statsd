@@ -2,7 +2,7 @@
 
 namespace League\StatsD\Test;
 use Silex\Application;
-use League\StatsD\Provider\Silex\StatsdServiceProvider;
+use League\StatsD\Silex\Provider\StatsdServiceProvider;
 use League\StatsD\Client;
 
 class SilexProviderTest extends TestCase
