@@ -10,7 +10,7 @@ use League\StatsD\Client as StatsdClient;
  *
  * @author Aran Wilkinson <aran@aranw.net>
  */
-class StatsdServiceProvider extends ServiceProvider 
+class StatsdServiceProvider extends ServiceProvider
 {
 
     /**
@@ -18,7 +18,7 @@ class StatsdServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot() 
+    public function boot()
     {
     }
 
@@ -39,24 +39,25 @@ class StatsdServiceProvider extends ServiceProvider
      */
     protected function registerStatsD()
     {
-        $this->app['statsd'] = $this->app->share(function ($app) 
-        {
-            // Set Default host and port
-            $options = array();
-            if (isset($app['config']['statsd.host'])) {
-                $options['host'] = $app['config']['statsd.host'];
-            }
-            if (isset($app['config']['statsd.port'])) {
-                $options['port'] = $app['config']['statsd.port'];
-            }
-            if (isset($app['config']['statsd.namespace'])) {
-                $options['namespace'] = $app['config']['statsd.namespace'];
-            }
+        $this->app['statsd'] = $this->app->share(
+            function ($app) {
+                // Set Default host and port
+                $options = array();
+                if (isset($app['config']['statsd.host'])) {
+                    $options['host'] = $app['config']['statsd.host'];
+                }
+                if (isset($app['config']['statsd.port'])) {
+                    $options['port'] = $app['config']['statsd.port'];
+                }
+                if (isset($app['config']['statsd.namespace'])) {
+                    $options['namespace'] = $app['config']['statsd.namespace'];
+                }
 
-            // Create
-            $statsd = new StatsdClient();
-            $statsd->configure($options);
-            return $statsd;
-        });
+                // Create
+                $statsd = new StatsdClient();
+                $statsd->configure($options);
+                return $statsd;
+            }
+        );
     }
 }
