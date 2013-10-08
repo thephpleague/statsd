@@ -3,7 +3,7 @@
 namespace League\StatsD\Laravel\Provider;
 
 use Illuminate\Support\ServiceProvider;
-use League\StatsD\Client as StatsdClient;
+use League\StatsD\Client as Statsd;
 
 /**
  * StatsD Service provider for Laravel
@@ -20,6 +20,7 @@ class StatsdServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->package('league/statsd', 'statsd');
     }
 
     /**
@@ -33,7 +34,7 @@ class StatsdServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register Statsd 
+     * Register Statsd
      *
      * @return void
      */
@@ -54,7 +55,7 @@ class StatsdServiceProvider extends ServiceProvider
                 }
 
                 // Create
-                $statsd = new StatsdClient();
+                $statsd = new Statsd();
                 $statsd->configure($options);
                 return $statsd;
             }
