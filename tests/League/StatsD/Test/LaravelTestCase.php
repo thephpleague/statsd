@@ -33,6 +33,8 @@ class LaravelTestCase extends TestCase
         $provider = new StatsdServiceProvider($app);
         $app->register($provider);
 
+        $provider->boot();
+
         return $provider;
     }
 }
