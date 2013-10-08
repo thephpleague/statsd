@@ -21,4 +21,4 @@ class StatsdFacade extends Facade
     {
         return 'statsd';
     }
-} 
+}
