@@ -7,7 +7,6 @@
     </testsuites>
     <filter>
         <whitelist>
-            <directory suffix=".php">src/Silex</directory>
             <directory suffix=".php">src/League</directory>
         </whitelist>
     </filter>
