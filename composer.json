@@ -17,7 +17,9 @@
         }
     ],
     "require-dev": {
-        "silex/silex": "~1.0"
+        "silex/silex": "~1.0",
+        "illuminate/foundation": "~4.0",
+        "illuminate/support": "~4.0"
     },
     "autoload": {
         "psr-0": {
