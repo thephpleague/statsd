@@ -100,13 +100,13 @@ $statsd->time('api.dbcall', function () {
 
 ## Contributing
 
-Please see [CONTRIBUTING](https://github.com/php-loep/statsd/blob/master/CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](https://github.com/thephpleague/statsd/blob/master/CONTRIBUTING.md) for details.
 
 
 ## Credits
 
 - [Marc Qualie](https://github.com/marcqualie)
-- [All Contributors](https://github.com/php-loep/statsd/contributors)
+- [All Contributors](https://github.com/thephpleague/statsd/contributors)
 
 
 ## License
