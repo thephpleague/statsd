@@ -1,9 +1,9 @@
 # StatsD PHP Library
 
-[![Build Status](https://travis-ci.org/php-loep/statsd.png?branch=master)](https://travis-ci.org/php-loep/statsd)
+[![Build Status](https://travis-ci.org/thephpleague/statsd.png?branch=master)](https://travis-ci.org/thephpleague/statsd)
 [![Total Downloads](https://poser.pugx.org/league/statsd/downloads.png)](https://packagist.org/packages/league/statsd)
 [![Latest Stable Version](https://poser.pugx.org/league/statsd/v/stable.png)](https://packagist.org/packages/league/statsd)
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/php-loep/statsd/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/thephpleague/statsd/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 
 A library for working with StatsD in PHP.
@@ -111,4 +111,4 @@ Please see [CONTRIBUTING](https://github.com/thephpleague/statsd/blob/master/CON
 
 ## License
 
-The MIT License (MIT). Please see [License File](https://github.com/php-loep/statsd/blob/master/LICENSE) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/thephpleague/statsd/blob/master/LICENSE) for more information.
