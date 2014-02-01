@@ -31,12 +31,12 @@ $statsd->configure(array(
 ));
 ```
 
-**Note** The namespace is optional, but reccomended.
+**Note** The namespace is optional, but recommended.
 
 
 ## Metrics
 
-There are various different matrics you can use withi StatsD. Here are a few below.
+There are various different metrics you can use within StatsD. Here are a few below.
 
 ```php
 $statsd->increment('metric'); // Increment a metric by 1

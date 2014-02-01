@@ -47,7 +47,7 @@ class StatsdServiceProvider implements ServiceProviderInterface
 
     /**
      * Boot Method
-     * @param Aplication $app Silex application instance
+     * @param Application $app Silex application instance
      * @codeCoverageIgnore
      */
     public function boot(Application $app)
