@@ -24,7 +24,7 @@ class ConfigurationTest extends TestCase
     public function testStringPort()
     {
         $this->client->configure(array(
-            'port' => 'not-integar'
+            'port' => 'not-integer'
         ));
     }
 
