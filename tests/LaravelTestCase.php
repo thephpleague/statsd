@@ -10,6 +10,14 @@ use League\StatsD\Laravel\Provider\StatsdServiceProvider;
 class LaravelTestCase extends TestCase
 {
 
+    public function setUp()
+    {
+        parent::setUp();
+        if (!class_exists('\Illuminate\Foundation\Application')) {
+            $this->markTestSkipped("Can't test Laravel integration without Illuminate");
+        }
+    }
+
     public function setupApplication($config = true)
     {
         $app = new Application();

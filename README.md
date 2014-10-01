@@ -79,6 +79,14 @@ $statsd->increment('web.clicks', 1, 0.5);
 $statsd->gauge('api.logged_in_users', 123456);
 ```
 
+
+### Sets
+
+```php
+$userID = 23;
+$statsd->set('api.unique_logins', $userID);
+```
+
 ### Timers
 
 ```php
