@@ -241,6 +241,21 @@ class Client
         );
     }
 
+    /**
+     * Sets - count the number of unique values passed to a key
+     * @param $metric
+     * @param mixed $value
+     * @return Client This instance
+     */
+    public function set($metric, $value)
+    {
+        return $this->send(
+            array(
+                $metric => $value . '|s'
+            )
+        );
+    }
+
 
     /**
      * Send Data to StatsD Server
