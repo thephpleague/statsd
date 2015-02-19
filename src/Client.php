@@ -60,6 +60,11 @@ class Client
      */
     protected $timeout;
 
+    /**
+     * Whether or not an exception should be thrown on failed connections
+     * @var bool
+     */
+    protected $throwConnectionExceptions = true;
 
     /**
      * Singleton Reference
@@ -118,12 +123,19 @@ class Client
             }
             $this->port = $port;
         }
+
         if (isset($options['namespace'])) {
             $this->namespace = $options['namespace'];
         }
+
         if (isset($options['timeout'])) {
             $this->timeout = $options['timeout'];
         }
+
+        if (isset($options['throwConnectionExceptions'])) {
+            $this->throwConnectionExceptions = $options['throwConnectionExceptions'];
+        }
+
         return $this;
     }
 
@@ -281,7 +293,15 @@ class Client
 
         $socket = @fsockopen('udp://' . $this->host, $this->port, $errno, $errstr, $this->timeout);
         if (! $socket) {
-            throw new ConnectionException($this, '(' . $errno . ') ' . $errstr);
+            if ($this->throwConnectionExceptions) {
+                throw new ConnectionException($this, '(' . $errno . ') ' . $errstr);
+            } else {
+                trigger_error(
+                    sprintf('StatsD server connection failed (udp://%s:%d)', $this->host, $this->port),
+                    E_USER_WARNING
+                );
+                return;
+            }
         }
         $this->messages = array();
         $prefix = $this->namespace ? $this->namespace . '.' : '';
