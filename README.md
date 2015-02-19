@@ -64,6 +64,15 @@ $statsd2 = StatsD\Client::instance('server2')->configure(array(...));
 The StatsD client wait for `ini_get('default_socket_timeout')` seconds when opening the socket by default. To reduce
 this timeout, add `'timeout' => <float>` to your config.
 
+The StatsD client will throw a `ConnectionException` if it is unable to send data to the StatsD server. You may choose
+to disable these exceptions and log a PHP warning instead if you wish. To do so, include the following in your config:
+
+```
+    'throwConnectionExceptions' => false
+```
+
+If omitted, this option defaults to `true`.
+
 ### Counters
 
 ```php
