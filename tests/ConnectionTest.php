@@ -33,16 +33,21 @@ class ConnectionTest extends TestCase
         ));
         $handlerInvoked = false;
 
-        set_error_handler(function ($errno, $errstr, $errfile, $errline, $errcontext) use (&$handlerInvoked) {
-            $handlerInvoked = true;
+        $testCase = $this;
 
-            $this->assertSame(E_USER_WARNING, $errno);
-            $this->assertSame(
-                'StatsD server connection failed (udp://hostdoesnotexiststalleverlol.stupidtld:8125)',
-                $errstr
-            );
-            $this->assertSame(realpath(__DIR__ . '/../src/Client.php'), $errfile);
-        }, E_USER_WARNING);
+        set_error_handler(
+            function ($errno, $errstr, $errfile, $errline, $errcontext) use ($testCase, &$handlerInvoked) {
+                $handlerInvoked = true;
+
+                $testCase->assertSame(E_USER_WARNING, $errno);
+                $testCase->assertSame(
+                    'StatsD server connection failed (udp://hostdoesnotexiststalleverlol.stupidtld:8125)',
+                    $errstr
+                );
+                $testCase->assertSame(realpath(__DIR__ . '/../src/Client.php'), $errfile);
+            },
+            E_USER_WARNING
+        );
 
         $this->client->increment('test');
         restore_error_handler();
