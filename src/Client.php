@@ -54,6 +54,12 @@ class Client
      */
     protected $namespace = '';
 
+    /**
+     * Timeout for creating the socket connection
+     * @var null|float
+     */
+    protected $timeout;
+
 
     /**
      * Singleton Reference
@@ -77,6 +83,10 @@ class Client
     public function __construct($instance_id = null)
     {
         $this->instance_id = $instance_id ?: uniqid();
+
+        if (empty($this->timeout)) {
+            $this->timeout = ini_get('default_socket_timeout');
+        }
     }
 
 
@@ -110,6 +120,9 @@ class Client
         }
         if (isset($options['namespace'])) {
             $this->namespace = $options['namespace'];
+        }
+        if (isset($options['timeout'])) {
+            $this->timeout = $options['timeout'];
         }
         return $this;
     }
@@ -266,7 +279,7 @@ class Client
     protected function send(array $data)
     {
 
-        $socket = @fsockopen('udp://' . $this->host, $this->port, $errno, $errstr);
+        $socket = @fsockopen('udp://' . $this->host, $this->port, $errno, $errstr, $this->timeout);
         if (! $socket) {
             throw new ConnectionException($this, '(' . $errno . ') ' . $errstr);
         }
