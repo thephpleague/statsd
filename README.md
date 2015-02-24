@@ -61,6 +61,9 @@ $statsd1 = StatsD\Client::instance('server1')->configure(array(...));
 $statsd2 = StatsD\Client::instance('server2')->configure(array(...));
 ```
 
+The StatsD client wait for `ini_get('default_socket_timeout')` seconds when opening the socket by default. To reduce
+this timeout, add `'timeout' => <float>` to your config.
+
 ### Counters
 
 ```php
