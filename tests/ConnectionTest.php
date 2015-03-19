@@ -17,5 +17,18 @@ class ConnectionTest extends TestCase
         $this->client->increment('test');
     }
 
+    public function testTimeoutSettingIsUsedWhenCreatingSocketIfProvided()
+    {
+        $this->client->configure(array(
+            'host' => 'localhost',
+            'timeout' => 123
+        ));
 
+        $this->assertAttributeSame(123, 'timeout', $this->client);
+    }
+
+    public function testTimeoutDefaultsToPhpIniDefaultSocketTimeout()
+    {
+        $this->assertAttributeSame(ini_get('default_socket_timeout'), 'timeout', $this->client);
+    }
 }
