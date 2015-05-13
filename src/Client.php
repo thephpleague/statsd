@@ -69,7 +69,7 @@ class Client
     public static function instance($name = 'default')
     {
         if (! isset(self::$instances[$name])) {
-            self::$instances[$name] = new Client($name);
+            self::$instances[$name] = new static($name);
         }
         return self::$instances[$name];
     }
