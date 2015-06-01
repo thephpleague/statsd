@@ -28,7 +28,7 @@ Find the `providers` key in your `app/config/app.php` and register the Statsd Se
 ```php
     'providers' => array(
         // ...
-        'League\Statsd\Laravel\Provider\StatsdServiceProvider',
+        'League\StatsD\Laravel\Provider\StatsdServiceProvider',
     )
 ```
 
@@ -37,7 +37,7 @@ Find the `aliases` key in your `app/config/app.php` and add the Statsd Facade Al
 ```php
     'aliases' => array(
         // ...
-        'Statsd' => 'League\Statsd\Laravel\Facade\StatsdFacade',
+        'Statsd' => 'League\StatsD\Laravel\Facade\StatsdFacade',
     )
 ```
 
