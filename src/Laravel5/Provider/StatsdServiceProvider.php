@@ -22,7 +22,7 @@ class StatsdServiceProvider extends ServiceProvider
     {
 		// Publish config files
 		$this->publishes([
-			__DIR__.'/../../../../config/config.php' => config_path('entrust.php'),
+			__DIR__.'/../../../../config/config.php' => config_path('statsd.php'),
 		]);
     }
 
