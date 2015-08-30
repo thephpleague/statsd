@@ -41,6 +41,26 @@ Find the `aliases` key in your `app/config/app.php` and add the Statsd Facade Al
     )
 ```
 
+For Laravel 5:
+
+Find the `providers` key in your `config/app.php` and register the Statsd Service Provider.
+
+```php
+    'providers' => [
+        // ...
+        League\StatsD\Laravel5\Provider\StatsdServiceProvider::class,
+    ]
+```
+
+Find the `aliases` key in your `app/config/app.php` and add the Statsd Facade Alias.
+
+```php
+    'aliases' => [
+        // ...
+        'Statsd' => League\StatsD\Laravel5\Facade\StatsdFacade::class,
+    ]
+```
+
 ## Usage
 
 ### Configuring
