@@ -63,5 +63,9 @@ class StatsdServiceProvider extends ServiceProvider
                 return $statsd;
             }
         );
+        
+        $this->app->bind('League\StatsD\Client', function ($app) {
+            return $app['statsd'];
+        });
     }
 }
