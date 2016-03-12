@@ -290,9 +290,22 @@ class Client
      */
     protected function send(array $data)
     {
-
-        $socket = @fsockopen('udp://' . $this->host, $this->port, $errno, $errstr, $this->timeout);
-        if (! $socket) {
+        try {
+            $host_ip = gethostbyname($this->host);
+            $socket = @fsockopen('udp://' . $host_ip, $this->port, $errno, $errstr, $this->timeout);
+            if (! $socket) {
+              throw new \Exception($errstr);
+            }
+            $this->messages = array();
+            $prefix = $this->namespace ? $this->namespace . '.' : '';
+            foreach ($data as $key => $value) {
+                $this->messages[] = $prefix . $key . ':' . $value;
+            }
+            $this->message = implode("\n", $this->messages);
+            @fwrite($socket, $this->message);
+            fclose($socket);
+            return $this;
+        } catch (\Exception $e) {
             if ($this->throwConnectionExceptions) {
                 throw new ConnectionException($this, '(' . $errno . ') ' . $errstr);
             } else {
@@ -300,18 +313,7 @@ class Client
                     sprintf('StatsD server connection failed (udp://%s:%d)', $this->host, $this->port),
                     E_USER_WARNING
                 );
-                return;
             }
         }
-        $this->messages = array();
-        $prefix = $this->namespace ? $this->namespace . '.' : '';
-        foreach ($data as $key => $value) {
-            $this->messages[] = $prefix . $key . ':' . $value;
-        }
-        $this->message = implode("\n", $this->messages);
-        @fwrite($socket, $this->message);
-        fclose($socket);
-        return $this;
-
     }
 }
