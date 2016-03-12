@@ -291,8 +291,7 @@ class Client
     protected function send(array $data)
     {
         try {
-            $host_ip = gethostbyname($this->host);
-            $socket = @fsockopen('udp://' . $host_ip, $this->port, $errno, $errstr, $this->timeout);
+            $socket = @fsockopen('udp://' . $this->host, $this->port, $errno, $errstr, $this->timeout);
             if (! $socket) {
               throw new \Exception($errstr);
             }
