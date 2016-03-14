@@ -56,6 +56,12 @@ class StatsdServiceProvider extends ServiceProvider
                 if (isset($app['config']['statsd.namespace'])) {
                     $options['namespace'] = $app['config']['statsd.namespace'];
                 }
+                if (isset($app['config']['statsd.timeout'])) {
+                    $options['timeout'] = $app['config']['statsd.timeout'];
+                }
+                if (isset($app['config']['statsd.throwConnectionExceptions'])) {
+                    $options['throwConnectionExceptions'] = $app['config']['statsd.throwConnectionExceptions'];
+                }
 
                 // Create
                 $statsd = new Statsd();
@@ -63,7 +69,7 @@ class StatsdServiceProvider extends ServiceProvider
                 return $statsd;
             }
         );
-        
+
         $this->app->bind('League\StatsD\Client', function ($app) {
             return $app['statsd'];
         });

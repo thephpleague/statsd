@@ -5,5 +5,7 @@ return [
 
 	'port' => 8125,
 
-	'namespace' => ''
+	'namespace' => '',
+
+	'throwConnectionExceptions' => true,
 ];
