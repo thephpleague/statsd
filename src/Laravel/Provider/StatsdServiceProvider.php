@@ -53,6 +53,9 @@ class StatsdServiceProvider extends ServiceProvider
                 if (isset($app['config']['statsd.namespace'])) {
                     $options['namespace'] = $app['config']['statsd.namespace'];
                 }
+                if (isset($app['config']['statsd.throwConnectionExceptions'])) {
+                    $options['throwConnectionExceptions'] = $app['config']['statsd.throwConnectionExceptions'];
+                }
 
                 // Create
                 $statsd = new Statsd();
