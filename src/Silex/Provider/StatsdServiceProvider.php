@@ -34,12 +34,12 @@ class StatsdServiceProvider implements ServiceProviderInterface
                 if (isset($app['statsd.namespace'])) {
                     $options['namespace'] = $app['statsd.namespace'];
                 }
-                if (isset($app['config']['statsd.timeout'])) {
-                    $options['timeout'] = $app['config']['statsd.timeout'];
+                if (isset($app['statsd.timeout'])) {
+                    $options['timeout'] = $app['statsd.timeout'];
                 }
-                if (isset($app['config']['statsd.throwConnectionExceptions'])) {
-                    $options['throwConnectionExceptions'] = $app['config']['statsd.throwConnectionExceptions'];
-                }                
+                if (isset($app['statsd.throwConnectionExceptions'])) {
+                    $options['throwConnectionExceptions'] = $app['statsd.throwConnectionExceptions'];
+                }
 
                 // Create
                 $statsd = new StatsdClient();
