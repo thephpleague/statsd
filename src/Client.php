@@ -295,12 +295,12 @@ class Client
             if (! $socket) {
               throw new \Exception($errstr);
             }
-            $this->messages = array();
+            $messages = array();
             $prefix = $this->namespace ? $this->namespace . '.' : '';
             foreach ($data as $key => $value) {
-                $this->messages[] = $prefix . $key . ':' . $value;
+                $messages[] = $prefix . $key . ':' . $value;
             }
-            $this->message = implode("\n", $this->messages);
+            $this->message = implode("\n", $messages);
             @fwrite($socket, $this->message);
             fclose($socket);
             return $this;
