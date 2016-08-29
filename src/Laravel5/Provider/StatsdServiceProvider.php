@@ -43,32 +43,29 @@ class StatsdServiceProvider extends ServiceProvider
      */
     protected function registerStatsD()
     {
-        $this->app['statsd'] = $this->app->share(
-            function ($app) {
-                // Set Default host and port
-                $options = array();
-                if (isset($app['config']['statsd.host'])) {
-                    $options['host'] = $app['config']['statsd.host'];
-                }
-                if (isset($app['config']['statsd.port'])) {
-                    $options['port'] = $app['config']['statsd.port'];
-                }
-                if (isset($app['config']['statsd.namespace'])) {
-                    $options['namespace'] = $app['config']['statsd.namespace'];
-                }
-                if (isset($app['config']['statsd.timeout'])) {
-                    $options['timeout'] = $app['config']['statsd.timeout'];
-                }
-                if (isset($app['config']['statsd.throwConnectionExceptions'])) {
-                    $options['throwConnectionExceptions'] = $app['config']['statsd.throwConnectionExceptions'];
-                }
-
-                // Create
-                $statsd = new Statsd();
-                $statsd->configure($options);
-                return $statsd;
+        $this->app['statsd'] = $this->app->share(function () {
+            // Set Default host and port
+            $config = config('statsd');
+            $options = array();
+            if (isset($config['host'])) {
+                $options['host'] = $config['host'];
             }
-        );
+            if (isset($config['port'])) {
+                $options['port'] = $config['port'];
+            }
+            if (isset($config['namespace'])) {
+                $options['namespace'] = $config['namespace'];
+            }
+            if (isset($config['timeout'])) {
+                $options['timeout'] = $config['timeout'];
+            }
+            if (isset($config['throwConnectionExceptions'])) {
+                $options['throwConnectionExceptions'] = $config['throwConnectionExceptions'];
+            }
+
+            // Create
+            return (new Statsd())->configure($options);
+        });
 
         $this->app->bind('League\StatsD\Client', function ($app) {
             return $app['statsd'];
