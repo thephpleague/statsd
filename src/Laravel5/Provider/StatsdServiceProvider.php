@@ -44,27 +44,9 @@ class StatsdServiceProvider extends ServiceProvider
     protected function registerStatsD()
     {
         $this->app['statsd'] = $this->app->share(function () {
-            // Set Default host and port
-            $config = config('statsd');
-            $options = array();
-            if (isset($config['host'])) {
-                $options['host'] = $config['host'];
-            }
-            if (isset($config['port'])) {
-                $options['port'] = $config['port'];
-            }
-            if (isset($config['namespace'])) {
-                $options['namespace'] = $config['namespace'];
-            }
-            if (isset($config['timeout'])) {
-                $options['timeout'] = $config['timeout'];
-            }
-            if (isset($config['throwConnectionExceptions'])) {
-                $options['throwConnectionExceptions'] = $config['throwConnectionExceptions'];
-            }
-
-            // Create
-            return (new Statsd())->configure($options);
+            $statsd = new Statsd();
+            $statsd->configure(config('statsd'));
+            return $statsd;
         });
 
         $this->app->bind('League\StatsD\Client', function ($app) {

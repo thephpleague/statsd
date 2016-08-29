@@ -20,34 +20,10 @@ class StatsdServiceProvider implements ServiceProviderInterface
      */
     public function register(Application $app)
     {
-        $app['statsd'] = $app->share(
-            function () use ($app) {
-
-                // Set Default host and port
-                $options = array();
-                if (isset($app['statsd.host'])) {
-                    $options['host'] = $app['statsd.host'];
-                }
-                if (isset($app['statsd.port'])) {
-                    $options['port'] = $app['statsd.port'];
-                }
-                if (isset($app['statsd.namespace'])) {
-                    $options['namespace'] = $app['statsd.namespace'];
-                }
-                if (isset($app['statsd.timeout'])) {
-                    $options['timeout'] = $app['statsd.timeout'];
-                }
-                if (isset($app['statsd.throwConnectionExceptions'])) {
-                    $options['throwConnectionExceptions'] = $app['statsd.throwConnectionExceptions'];
-                }
-
-                // Create
-                $statsd = new StatsdClient();
-                $statsd->configure($options);
-                return $statsd;
-
-            }
-        );
+        $app['statsd'] = $app->share(function () use ($app) {
+            $statsd = new StatsdClient();
+            return $statsd->configure($app['statsd']);
+        });
     }
 
 
