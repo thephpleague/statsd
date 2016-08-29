@@ -67,6 +67,12 @@ class Client
     protected $throwConnectionExceptions = true;
 
     /**
+     * Record metric start time
+     * @var array
+     */
+    protected $metricTiming;
+
+    /**
      * Singleton Reference
      * @param  string $name Instance name
      * @return Client Client instance
@@ -93,7 +99,6 @@ class Client
             $this->timeout = ini_get('default_socket_timeout');
         }
     }
-
 
     /**
      * Get string value of instance
@@ -218,12 +223,36 @@ class Client
         return $this->increment($metrics, 0 - $delta, $sampleRate);
     }
 
+    /**
+     * Start timing the given metric
+     * @param  string $metric Metric to time
+     * @return Client This instance
+     */
+    public function startTiming($metric)
+    {
+        $this->metricTiming[$metric] = microtime(true);
+        return $this;
+    }
+
+    /**
+     * End timing the given metric and record
+     * @param  string $metric Metric to time
+     * @param  callable $func Function to record
+     * @return Client This instance
+     */
+    public function endTiming($metric)
+    {
+        $timer_start = $this->metricTiming[$metric];
+        $timer_end = microtime(true);
+        $time = round(($timer_end - $timer_start) * 1000, 4);
+        return $this->timing($metric, $time);
+    }
 
     /**
      * Timing
      * @param  string $metric Metric to track
      * @param  float $time Time in milliseconds
-     * @return bool True if data transfer is successful
+     * @return Client This instance
      */
     public function timing($metric, $time)
     {
@@ -239,7 +268,7 @@ class Client
      * Time a function
      * @param  string $metric Metric to time
      * @param  callable $func Function to record
-     * @return bool True if data transfer is successful
+     * @return Client This instance
      */
     public function time($metric, $func)
     {
