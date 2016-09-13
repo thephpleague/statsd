@@ -20,10 +20,14 @@ class StatsdServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-		// Publish config files
-		$this->publishes([
-			__DIR__.'/../../../config/config.php' => config_path('statsd.php'),
-		]);
+        if (strpos($this->app->version(), 'Lumen')) {
+            $this->app->configure('statsd');
+        } else {
+            // Publish config files
+            $this->publishes([
+                __DIR__ . '/../../../config/statsd.php' => config_path('statsd.php'),
+            ]);
+        }
     }
 
     /**
