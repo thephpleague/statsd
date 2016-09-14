@@ -20,7 +20,7 @@ class StatsdServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if (strpos($this->app->version(), 'Lumen')) {
+        if (false !== strpos($this->app->version(), 'Lumen')) {
             $this->app->configure('statsd');
         } else {
             // Publish config files
