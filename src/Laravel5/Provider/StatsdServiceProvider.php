@@ -47,20 +47,26 @@ class StatsdServiceProvider extends ServiceProvider
             function ($app) {
                 // Set Default host and port
                 $options = array();
-                if (isset($app['config']['statsd.host'])) {
-                    $options['host'] = $app['config']['statsd.host'];
+                $config  = $app['config'];
+
+                if (isset($config['statsd.host'])) {
+                    $options['host'] = $config['statsd.host'];
                 }
-                if (isset($app['config']['statsd.port'])) {
-                    $options['port'] = $app['config']['statsd.port'];
+
+                if (isset($config['statsd.port'])) {
+                    $options['port'] = $config['statsd.port'];
                 }
-                if (isset($app['config']['statsd.namespace'])) {
-                    $options['namespace'] = $app['config']['statsd.namespace'];
+
+                if (isset($config['statsd.namespace'])) {
+                    $options['namespace'] = $config['statsd.namespace'];
                 }
-                if (isset($app['config']['statsd.timeout'])) {
-                    $options['timeout'] = $app['config']['statsd.timeout'];
+
+                if (isset($config['statsd.timeout'])) {
+                    $options['timeout'] = $config['statsd.timeout'];
                 }
-                if (isset($app['config']['statsd.throwConnectionExceptions'])) {
-                    $options['throwConnectionExceptions'] = $app['config']['statsd.throwConnectionExceptions'];
+
+                if (isset($config['statsd.throwConnectionExceptions'])) {
+                    $options['throwConnectionExceptions'] = (boolean) $config['statsd.throwConnectionExceptions'];
                 }
 
                 // Create
