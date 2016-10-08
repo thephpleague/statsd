@@ -61,6 +61,28 @@ Find the `aliases` key in your `app/config/app.php` and add the Statsd Facade Al
     ]
 ```
 
+For Lumen:
+
+Register the provider in your boostrap app file ```boostrap/app.php```
+
+Add the following line in the "Register Service Providers"  section at the bottom of the file. 
+
+```php
+$app->register(\League\StatsD\Laravel5\Provider\StatsdServiceProvider::class);
+```
+
+Copy the config file ```statsd.php``` manually from the directory ```/vendor/league/statsd/config``` to the directory ```/config ``` (you may need to create this directory).
+
+Package Configuration
+
+In your `.env` file, add the configuration:
+
+```php
+STATSD_HOST=127.0.0.1
+STATSD_PORT=8125
+STATSD_NAMESPACE=
+```
+
 ## Usage
 
 ### Configuring
