@@ -47,7 +47,7 @@ class StatsdServiceProvider extends ServiceProvider
      */
     protected function registerStatsD()
     {
-        $this->app['statsd'] = $this->app->share(
+        $this->app->singleton('statsd',
             function ($app) {
                 // Set Default host and port
                 $options = array();
