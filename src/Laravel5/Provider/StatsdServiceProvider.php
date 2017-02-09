@@ -26,7 +26,7 @@ class StatsdServiceProvider extends ServiceProvider
             // Publish config files
             $this->publishes([
                 __DIR__ . '/../../../config/statsd.php' => config_path('statsd.php'),
-            ]);
+            ], 'config');
         }
     }
 
