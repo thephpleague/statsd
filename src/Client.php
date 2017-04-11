@@ -199,12 +199,12 @@ class Client
         if ($sampleRate < 1) {
             foreach ($metrics as $metric) {
                 if ((mt_rand() / mt_getrandmax()) <= $sampleRate) {
-                    $data[$metric] = $delta . '|c|@' . $sampleRate;
+                    $data[$metric] = var_export($delta, true) . '|c|@' . var_export($sampleRate, true);
                 }
             }
         } else {
             foreach ($metrics as $metric) {
-                $data[$metric] = $delta . '|c';
+                $data[$metric] = var_export($delta, true) . '|c';
             }
         }
         return $this->send($data);
@@ -258,7 +258,7 @@ class Client
     {
         return $this->send(
             array(
-                $metric => $time . '|ms'
+                $metric => var_export($time, true) . '|ms'
             )
         );
     }
@@ -290,7 +290,7 @@ class Client
     {
         return $this->send(
             array(
-                $metric => $value . '|g'
+                $metric => var_export($value, true) . '|g'
             )
         );
     }
@@ -305,7 +305,7 @@ class Client
     {
         return $this->send(
             array(
-                $metric => $value . '|s'
+                $metric => var_export($value, true) . '|s'
             )
         );
     }
