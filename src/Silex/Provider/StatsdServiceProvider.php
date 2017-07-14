@@ -3,8 +3,10 @@
 namespace League\StatsD\Silex\Provider;
 
 use Silex\Application;
-use Silex\ServiceProviderInterface;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 use League\StatsD\Client as StatsdClient;
+use Symfony\Component\HttpKernel\Tests\Controller;
 
 /**
  * StatsD Service provider for Silex
@@ -16,12 +18,11 @@ class StatsdServiceProvider implements ServiceProviderInterface
 
     /**
      * Register Service Provider
-     * @param Application $app Silex application instance
+     * @param Container $app Pimple container instance
      */
-    public function register(Application $app)
+    public function register(Container $app)
     {
-        $app['statsd'] = $app->share(
-            function () use ($app) {
+        $app['statsd'] =  function () use ($app) {
 
                 // Set Default host and port
                 $options = array();
@@ -46,8 +47,7 @@ class StatsdServiceProvider implements ServiceProviderInterface
                 $statsd->configure($options);
                 return $statsd;
 
-            }
-        );
+            };
     }
 
 

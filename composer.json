@@ -17,7 +17,7 @@
         }
     ],
     "require-dev": {
-        "silex/silex": "~1.0",
+        "silex/silex": "~2.0",
         "phpunit/phpunit": "~4.0"
     },
     "autoload": {
