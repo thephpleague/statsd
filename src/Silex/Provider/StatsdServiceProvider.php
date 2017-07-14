@@ -3,7 +3,7 @@
 namespace League\StatsD\Silex\Provider;
 
 use Silex\Application;
-use Silex\ServiceProviderInterface;
+use Pimple\ServiceProviderInterface;
 use League\StatsD\Client as StatsdClient;
 
 /**
