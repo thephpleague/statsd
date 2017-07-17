@@ -3,7 +3,6 @@
 [![Build Status](https://travis-ci.org/thephpleague/statsd.png?branch=master)](https://travis-ci.org/thephpleague/statsd)
 [![Total Downloads](https://poser.pugx.org/league/statsd/downloads.png)](https://packagist.org/packages/league/statsd)
 [![Latest Stable Version](https://poser.pugx.org/league/statsd/v/stable.png)](https://packagist.org/packages/league/statsd)
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/thephpleague/statsd/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 
 A library for working with StatsD in PHP.
