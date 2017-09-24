@@ -40,7 +40,9 @@ Find the `aliases` key in your `app/config/app.php` and add the Statsd Facade Al
     )
 ```
 
-For Laravel 5:
+If you are using Laravel `>=5.5`, statsd uses [package discovery](https://laravel.com/docs/5.5/packages#package-discovery) to automatically register the service provider and facade.
+
+For older versions of Laravel 5, or if you disable package discovery:
 
 Find the `providers` key in your `config/app.php` and register the Statsd Service Provider.
 
