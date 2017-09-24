@@ -25,5 +25,15 @@
             "League\\StatsD\\": "src",
             "League\\StatsD\\Test\\": "tests"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "League\\StatsD\\Laravel5\\Provider\\StatsdServiceProvider"
+            ],
+            "aliases": {
+                "Statsd": "League\\StatsD\\Laravel5\\Facade\\StatsdFacade"
+            }
+        }
     }
 }
