@@ -22,6 +22,8 @@ Via Composer
 
 To use the Statsd Service Provider, you must register the provider when bootstrapping your Laravel application.
 
+### Laravel 4.x
+
 Find the `providers` key in your `app/config/app.php` and register the Statsd Service Provider.
 
 ```php
@@ -39,6 +41,7 @@ Find the `aliases` key in your `app/config/app.php` and add the Statsd Facade Al
         'Statsd' => 'League\StatsD\Laravel\Facade\StatsdFacade',
     )
 ```
+### Laravel 5.x
 
 If you are using Laravel `>=5.5`, statsd uses [package discovery](https://laravel.com/docs/5.5/packages#package-discovery) to automatically register the service provider and facade.
 
@@ -62,7 +65,7 @@ Find the `aliases` key in your `app/config/app.php` and add the Statsd Facade Al
     ]
 ```
 
-For Lumen:
+### Lumen
 
 Register the provider in your boostrap app file ```boostrap/app.php```
 
