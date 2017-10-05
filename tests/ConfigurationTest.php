@@ -16,7 +16,6 @@ class ConfigurationTest extends TestCase
         ));
     }
 
-
     /**
      * Test that user can configure port 0
      */
@@ -29,7 +28,6 @@ class ConfigurationTest extends TestCase
         $this->assertEquals($this->client->getPort(), 0);
     }
 
-
     /**
      * Non-integer ports are not acceptable
      * @expectedException League\StatsD\Exception\ConfigurationException
@@ -40,7 +38,6 @@ class ConfigurationTest extends TestCase
             'port' => 'not-integer'
         ));
     }
-
 
     /**
      * Negative ports are not acceptable
