@@ -18,6 +18,19 @@ class ConfigurationTest extends TestCase
 
 
     /**
+     * Test that user can configure port 0
+     */
+    public function testPort0()
+    {
+        $this->client->configure(array(
+            'port' => 0
+        ));
+
+        $this->assertEquals($this->client->getPort(), 0);
+    }
+
+
+    /**
      * Non-integer ports are not acceptable
      * @expectedException League\StatsD\Exception\ConfigurationException
      */
@@ -28,6 +41,17 @@ class ConfigurationTest extends TestCase
         ));
     }
 
+
+    /**
+     * Negative ports are not acceptable
+     * @expectedException League\StatsD\Exception\ConfigurationException
+     */
+    public function testNegativePort()
+    {
+        $this->client->configure(array(
+            'port' => -1
+        ));
+    }
 
     /**
      * Default Port
