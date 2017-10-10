@@ -40,6 +40,17 @@ class ConfigurationTest extends TestCase
     }
 
     /**
+     * Decimal ports are not acceptable
+     * @expectedException League\StatsD\Exception\ConfigurationException
+     */
+    public function testDecimalPort()
+    {
+        $this->client->configure(array(
+            'port' => 1.24,
+        ));
+    }
+
+    /**
      * Negative ports are not acceptable
      * @expectedException League\StatsD\Exception\ConfigurationException
      */

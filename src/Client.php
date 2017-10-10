@@ -122,7 +122,7 @@ class Client
             $this->host = $options['host'];
         }
         if (isset($options['port'])) {
-            if (!is_numeric($options['port']) || $options['port'] < 0 || $options['port'] > 65535) {
+            if (!is_numeric($options['port']) || is_float($options['port']) || $options['port'] < 0 || $options['port'] > 65535) {
                 throw new ConfigurationException($this, 'Port is out of range');
             }
             $this->port = $options['port'];
