@@ -16,6 +16,17 @@ class ConfigurationTest extends TestCase
         ));
     }
 
+    /**
+     * Test that user can configure port 0
+     */
+    public function testPort0()
+    {
+        $this->client->configure(array(
+            'port' => 0
+        ));
+
+        $this->assertEquals($this->client->getPort(), 0);
+    }
 
     /**
      * Non-integer ports are not acceptable
@@ -28,6 +39,27 @@ class ConfigurationTest extends TestCase
         ));
     }
 
+    /**
+     * Decimal ports are not acceptable
+     * @expectedException League\StatsD\Exception\ConfigurationException
+     */
+    public function testDecimalPort()
+    {
+        $this->client->configure(array(
+            'port' => 1.24,
+        ));
+    }
+
+    /**
+     * Negative ports are not acceptable
+     * @expectedException League\StatsD\Exception\ConfigurationException
+     */
+    public function testNegativePort()
+    {
+        $this->client->configure(array(
+            'port' => -1
+        ));
+    }
 
     /**
      * Default Port
