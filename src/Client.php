@@ -80,7 +80,6 @@ class Client
 
     /**
      * Singleton Reference
-     *
      * @param  string $name Instance name
      * @return Client Client instance
      */
@@ -95,7 +94,6 @@ class Client
 
     /**
      * Create a new instance
-     *
      * @param string $instance_id
      * @return void
      */
@@ -110,7 +108,6 @@ class Client
 
     /**
      * Get string value of instance
-     *
      * @return string String representation of this instance
      */
     public function __toString()
@@ -121,9 +118,7 @@ class Client
 
     /**
      * Initialize Connection Details
-     *
      * @param array $options Configuration options
-     *
      * @return Client This instance
      * @throws ConfigurationException If port is invalid
      */
@@ -157,7 +152,6 @@ class Client
 
     /**
      * Get Host
-     *
      * @return string Host
      */
     public function getHost()
@@ -168,7 +162,6 @@ class Client
 
     /**
      * Get Port
-     *
      * @return string Port
      */
     public function getPort()
@@ -179,7 +172,6 @@ class Client
 
     /**
      * Get Namespace
-     *
      * @return string Namespace
      */
     public function getNamespace()
@@ -190,7 +182,6 @@ class Client
 
     /**
      * Get Last Message
-     *
      * @return string Last message sent to server
      */
     public function getLastMessage()
@@ -201,11 +192,9 @@ class Client
 
     /**
      * Increment a metric
-     *
      * @param  string|array $metrics Metric(s) to increment
      * @param  int $delta Value to decrement the metric by
      * @param  int $sampleRate Sample rate of metric
-     *
      * @return $this
      * @throws ConnectionException
      */
@@ -230,11 +219,9 @@ class Client
 
     /**
      * Decrement a metric
-     *
      * @param  string|array $metrics Metric(s) to decrement
      * @param  int $delta Value to increment the metric by
      * @param  int $sampleRate Sample rate of metric
-     *
      * @return $this
      * @throws ConnectionException
      */
@@ -245,7 +232,6 @@ class Client
 
     /**
      * Start timing the given metric
-     *
      * @param  string $metric Metric to time
      * @return $this
      */
@@ -257,9 +243,7 @@ class Client
 
     /**
      * End timing the given metric and record
-     *
      * @param  string $metric Metric to time
-     *
      * @return $this
      * @throws ConnectionException
      */
@@ -273,10 +257,8 @@ class Client
 
     /**
      * Timing
-     *
      * @param  string $metric Metric to track
      * @param  float $time Time in milliseconds
-     *
      * @return $this
      * @throws ConnectionException
      */
@@ -292,10 +274,8 @@ class Client
 
     /**
      * Time a function
-     *
      * @param  string $metric Metric to time
      * @param  callable $func Function to record
-     *
      * @return $this
      * @throws ConnectionException
      */
@@ -311,10 +291,8 @@ class Client
 
     /**
      * Gauges
-     *
      * @param  string $metric Metric to gauge
      * @param  int $value Set the value of the gauge
-     *
      * @return $this
      * @throws ConnectionException
      */
@@ -330,10 +308,8 @@ class Client
 
     /**
      * Sets - count the number of unique values passed to a key
-     *
      * @param $metric
      * @param mixed $value
-     *
      * @return $this
      * @throws ConnectionException
      */
