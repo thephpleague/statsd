@@ -73,6 +73,12 @@ class Client
     protected $metricTiming;
 
     /**
+     * Socket pointer for sending metrics
+     * @var resource
+     */
+    protected $socket;
+
+    /**
      * Singleton Reference
      * @param  string $name Instance name
      * @return Client Client instance
@@ -189,7 +195,8 @@ class Client
      * @param  string|array $metrics Metric(s) to increment
      * @param  int $delta Value to decrement the metric by
      * @param  int $sampleRate Sample rate of metric
-     * @return Client This instance
+     * @return $this
+     * @throws ConnectionException
      */
     public function increment($metrics, $delta = 1, $sampleRate = 1)
     {
@@ -215,7 +222,8 @@ class Client
      * @param  string|array $metrics Metric(s) to decrement
      * @param  int $delta Value to increment the metric by
      * @param  int $sampleRate Sample rate of metric
-     * @return Client This instance
+     * @return $this
+     * @throws ConnectionException
      */
     public function decrement($metrics, $delta = 1, $sampleRate = 1)
     {
@@ -225,7 +233,7 @@ class Client
     /**
      * Start timing the given metric
      * @param  string $metric Metric to time
-     * @return Client This instance
+     * @return $this
      */
     public function startTiming($metric)
     {
@@ -236,8 +244,8 @@ class Client
     /**
      * End timing the given metric and record
      * @param  string $metric Metric to time
-     * @param  callable $func Function to record
-     * @return Client This instance
+     * @return $this
+     * @throws ConnectionException
      */
     public function endTiming($metric)
     {
@@ -251,7 +259,8 @@ class Client
      * Timing
      * @param  string $metric Metric to track
      * @param  float $time Time in milliseconds
-     * @return Client This instance
+     * @return $this
+     * @throws ConnectionException
      */
     public function timing($metric, $time)
     {
@@ -267,7 +276,8 @@ class Client
      * Time a function
      * @param  string $metric Metric to time
      * @param  callable $func Function to record
-     * @return Client This instance
+     * @return $this
+     * @throws ConnectionException
      */
     public function time($metric, $func)
     {
@@ -283,7 +293,8 @@ class Client
      * Gauges
      * @param  string $metric Metric to gauge
      * @param  int $value Set the value of the gauge
-     * @return Client This instance
+     * @return $this
+     * @throws ConnectionException
      */
     public function gauge($metric, $value)
     {
@@ -294,11 +305,13 @@ class Client
         );
     }
 
+
     /**
      * Sets - count the number of unique values passed to a key
      * @param $metric
      * @param mixed $value
-     * @return Client This instance
+     * @return $this
+     * @throws ConnectionException
      */
     public function set($metric, $value)
     {
@@ -311,18 +324,32 @@ class Client
 
 
     /**
+     * @throws ConnectionException
+     * @return resource
+     */
+    protected function getSocket()
+    {
+        if (!$this->socket) {
+            $this->socket = @fsockopen('udp://' . $this->host, $this->port, $errno, $errstr, $this->timeout);
+            if (!$this->socket) {
+                throw new ConnectionException($this, '(' . $errno . ') ' . $errstr);
+            }
+        }
+
+        return $this->socket;
+    }
+
+
+    /**
      * Send Data to StatsD Server
      * @param  array $data A list of messages to send to the server
-     * @return Client This instance
+     * @return $this
      * @throws ConnectionException If there is a connection problem with the host
      */
     protected function send(array $data)
     {
         try {
-            $socket = @fsockopen('udp://' . $this->host, $this->port, $errno, $errstr, $this->timeout);
-            if (! $socket) {
-              throw new \Exception($errstr);
-            }
+            $socket = $this->getSocket();
             $messages = array();
             $prefix = $this->namespace ? $this->namespace . '.' : '';
             foreach ($data as $key => $value) {
@@ -330,11 +357,10 @@ class Client
             }
             $this->message = implode("\n", $messages);
             @fwrite($socket, $this->message);
-            fclose($socket);
-            return $this;
-        } catch (\Exception $e) {
+            fflush($socket);
+        } catch (ConnectionException $e) {
             if ($this->throwConnectionExceptions) {
-                throw new ConnectionException($this, '(' . $errno . ') ' . $errstr);
+                throw $e;
             } else {
                 trigger_error(
                     sprintf('StatsD server connection failed (udp://%s:%d)', $this->host, $this->port),
@@ -342,5 +368,7 @@ class Client
                 );
             }
         }
+
+        return $this;
     }
 }
