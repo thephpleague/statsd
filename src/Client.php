@@ -271,6 +271,22 @@ class Client
         );
     }
 
+    /**
+     * Send multiple timing metrics at once
+     * @param array $metrics key value map of metric name -> timing value
+     * @return Client
+     * @throws ConnectionException
+     */
+    public function timings($metrics)
+    {
+        // add |ms to values
+        $data = [];
+        foreach ($metrics as $metric => $timing) {
+            $data[$metric] = $timing.'|ms';
+        }
+
+        return $this->send($data);
+    }
 
     /**
      * Time a function
