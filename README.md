@@ -94,6 +94,11 @@ $statsd->set('api.unique_logins', $userID);
 $statsd->timing('api.response_time', 256);
 ```
 
+```php
+$metrics = array('api.response_time' => 256, 'api.memory' => 4096));
+$statsd->timings($metrics);
+```
+
 
 ## Timing Blocks
 
