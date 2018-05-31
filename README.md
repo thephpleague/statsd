@@ -103,7 +103,23 @@ $statsd->time('api.dbcall', function () {
 });
 ```
 
+## Tags
 
+***Attention!** That functionality support of tags in Datadog format!*
+
+You may configure it for all the metrics sending by the client. 
+
+```php
+$statsd->configure(array(
+    'tags' => array('some_general_tag' => 'value') 
+));
+```
+
+Or you may send it for a single metric.
+
+```php
+$statsd->increment('web.clicks', 1, 1, array('host' => $_SERVER['HTTP_HOST']));
+```
 
 ## Framework integration
 
