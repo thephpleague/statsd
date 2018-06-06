@@ -17,12 +17,16 @@
         }
     ],
     "require-dev": {
-        "silex/silex": "~2.0",
-        "phpunit/phpunit": "~5.7"
+        "silex/silex": "^2.0",
+        "phpunit/phpunit": "^5.7 || ^6.5"
     },
     "autoload": {
         "psr-4": {
-            "League\\StatsD\\": "src",
+            "League\\StatsD\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
             "League\\StatsD\\Test\\": "tests"
         }
     },

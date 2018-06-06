@@ -15,7 +15,9 @@ class SilexProviderTest extends TestCase
         $app->register(new StatsdServiceProvider(), array(
             'statsd.host' => 'localhost',
             'statsd.port' => 7890,
-            'statsd.namespace' => 'test_namespace'
+            'statsd.namespace' => 'test_namespace',
+            'statsd.timeout' => 10,
+            'statsd.throwConnectionExceptions' => false,
         ));
 
         // Make sure is the right instance type

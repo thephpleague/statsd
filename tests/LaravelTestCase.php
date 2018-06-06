@@ -13,7 +13,7 @@ class LaravelTestCase extends TestCase
     public function setUp()
     {
         parent::setUp();
-        if (!class_exists('\Illuminate\Foundation\Application')) {
+        if (!class_exists(Application::class)) {
             $this->markTestSkipped("Can't test Laravel integration without Illuminate");
         }
     }

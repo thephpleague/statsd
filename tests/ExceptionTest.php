@@ -15,7 +15,7 @@ class ExceptionTest extends TestCase
             throw new ConnectionException($this->client, 'Could not connect');
         } catch (ConnectionException $e) {
             $client = $e->getInstance();
-            $this->assertTrue($client instanceof Client);
+            $this->assertInstanceOf(Client::class, $client);
             $this->assertEquals('Could not connect', $e->getMessage());
             return;
         }
@@ -29,7 +29,7 @@ class ExceptionTest extends TestCase
             throw new ConfigurationException($this->client, 'Configuration error');
         } catch (ConfigurationException $e) {
             $client = $e->getInstance();
-            $this->assertTrue($client instanceof Client);
+            $this->assertInstanceOf(Client::class, $client);
             $this->assertEquals('Configuration error', $e->getMessage());
             return;
         }
