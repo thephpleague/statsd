@@ -9,7 +9,7 @@ class LateStaticClientTest extends TestCase
     {
         $client = new LateStaticClient();
         $instance = LateStaticClient::instance();
-        $this->assertTrue($instance instanceof LateStaticClient);
+        $this->assertInstanceOf(LateStaticClient::class, $instance);
     }
 
 }

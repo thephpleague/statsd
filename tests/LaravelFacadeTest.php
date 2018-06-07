@@ -3,6 +3,7 @@
 namespace League\StatsD\Test;
 
 use League\StatsD\Laravel\Facade\StatsdFacade as Statsd;
+use League\StatsD\Client;
 
 class LaravelFacadeTest extends LaravelTestCase
 {
@@ -16,6 +17,6 @@ class LaravelFacadeTest extends LaravelTestCase
 
         // Get an instance of a client (S3) via its facade
         $statsd = Statsd::instance();
-        $this->assertInstanceOf('League\StatsD\Client', $statsd);
+        $this->assertInstanceOf(Client::class, $statsd);
     }
 } 

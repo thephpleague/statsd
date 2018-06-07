@@ -13,7 +13,7 @@ class LaravelProviderTest extends LaravelTestCase
         $this->setupServiceProvider($app);
 
         // Make sure is the right instance type
-        $this->assertTrue($app['statsd'] instanceof Client);
+        $this->assertInstanceOf(Client::class, $app['statsd']);
 
         // Make sure configuration is sorted
         $this->assertEquals('localhost', $app['statsd']->getHost());
