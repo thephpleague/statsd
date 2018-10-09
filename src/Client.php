@@ -79,6 +79,12 @@ class Client
     protected $socket;
 
     /**
+     * Generic tags
+     * @var array
+     */
+    protected $tags = [];
+
+    /**
      * Singleton Reference
      * @param  string $name Instance name
      * @return Client Client instance
@@ -146,6 +152,10 @@ class Client
             $this->throwConnectionExceptions = $options['throwConnectionExceptions'];
         }
 
+        if (isset($options['tags'])) {
+            $this->tags = $options['tags'];
+        }
+
         return $this;
     }
 
@@ -195,10 +205,11 @@ class Client
      * @param  string|array $metrics Metric(s) to increment
      * @param  int $delta Value to decrement the metric by
      * @param  int $sampleRate Sample rate of metric
+     * @param  array $tags A list of metric tags values
      * @return $this
      * @throws ConnectionException
      */
-    public function increment($metrics, $delta = 1, $sampleRate = 1)
+    public function increment($metrics, $delta = 1, $sampleRate = 1, array $tags = [])
     {
         $metrics = (array) $metrics;
         $data = array();
@@ -213,7 +224,7 @@ class Client
                 $data[$metric] = $delta . '|c';
             }
         }
-        return $this->send($data);
+        return $this->send($data, $tags);
     }
 
 
@@ -222,12 +233,13 @@ class Client
      * @param  string|array $metrics Metric(s) to decrement
      * @param  int $delta Value to increment the metric by
      * @param  int $sampleRate Sample rate of metric
+     * @param  array $tags A list of metric tags values
      * @return $this
      * @throws ConnectionException
      */
-    public function decrement($metrics, $delta = 1, $sampleRate = 1)
+    public function decrement($metrics, $delta = 1, $sampleRate = 1, array $tags = [])
     {
-        return $this->increment($metrics, 0 - $delta, $sampleRate);
+        return $this->increment($metrics, 0 - $delta, $sampleRate, $tags);
     }
 
     /**
@@ -244,30 +256,33 @@ class Client
     /**
      * End timing the given metric and record
      * @param  string $metric Metric to time
+     * @param  array $tags A list of metric tags values
      * @return $this
      * @throws ConnectionException
      */
-    public function endTiming($metric)
+    public function endTiming($metric, array $tags = array())
     {
         $timer_start = $this->metricTiming[$metric];
         $timer_end = microtime(true);
         $time = round(($timer_end - $timer_start) * 1000, 4);
-        return $this->timing($metric, $time);
+        return $this->timing($metric, $time, $tags);
     }
 
     /**
      * Timing
      * @param  string $metric Metric to track
      * @param  float $time Time in milliseconds
+     * @param  array $tags A list of metric tags values
      * @return $this
      * @throws ConnectionException
      */
-    public function timing($metric, $time)
+    public function timing($metric, $time, array $tags = array())
     {
         return $this->send(
             array(
                 $metric => $time . '|ms'
-            )
+            ),
+            $tags
         );
     }
 
@@ -292,16 +307,17 @@ class Client
      * Time a function
      * @param  string $metric Metric to time
      * @param  callable $func Function to record
+     * @param  array $tags A list of metric tags values
      * @return $this
      * @throws ConnectionException
      */
-    public function time($metric, $func)
+    public function time($metric, $func, array $tags = array())
     {
         $timer_start = microtime(true);
         $func();
         $timer_end = microtime(true);
         $time = round(($timer_end - $timer_start) * 1000, 4);
-        return $this->timing($metric, $time);
+        return $this->timing($metric, $time, $tags);
     }
 
 
@@ -309,15 +325,17 @@ class Client
      * Gauges
      * @param  string $metric Metric to gauge
      * @param  int $value Set the value of the gauge
+     * @param  array $tags A list of metric tags values
      * @return $this
      * @throws ConnectionException
      */
-    public function gauge($metric, $value)
+    public function gauge($metric, $value, array $tags = array())
     {
         return $this->send(
             array(
                 $metric => $value . '|g'
-            )
+            ),
+            $tags
         );
     }
 
@@ -326,15 +344,17 @@ class Client
      * Sets - count the number of unique values passed to a key
      * @param $metric
      * @param mixed $value
+     * @param array $tags A list of metric tags values
      * @return $this
      * @throws ConnectionException
      */
-    public function set($metric, $value)
+    public function set($metric, $value, array $tags = array())
     {
         return $this->send(
             array(
                 $metric => $value . '|s'
-            )
+            ),
+            $tags
         );
     }
 
@@ -355,21 +375,40 @@ class Client
         return $this->socket;
     }
 
+    /**
+     * @param array $tags
+     * @return string
+     */
+    protected function serializeTags(array $tags)
+    {
+        if (!is_array($tags) || count($tags) === 0) {
+            return '';
+        }
+        $data = array();
+        foreach ($tags as $tagKey => $tagValue) {
+            $data[] = isset($tagValue) ? $tagKey . ':' . $tagValue : $tagKey;
+        }
+        return '|#' . implode(',', $data);
+    }
+
 
     /**
      * Send Data to StatsD Server
      * @param  array $data A list of messages to send to the server
+     * @param  array $tags A list of tags to send to the server
      * @return $this
      * @throws ConnectionException If there is a connection problem with the host
      */
-    protected function send(array $data)
+    protected function send(array $data, array $tags = array())
     {
+        $tagsData = $this->serializeTags(array_replace($this->tags, $tags));
+
         try {
             $socket = $this->getSocket();
             $messages = array();
             $prefix = $this->namespace ? $this->namespace . '.' : '';
             foreach ($data as $key => $value) {
-                $messages[] = $prefix . $key . ':' . $value;
+                $messages[] = $prefix . $key . ':' . $value . $tagsData;
             }
             $this->message = implode("\n", $messages);
             @fwrite($socket, $this->message);
