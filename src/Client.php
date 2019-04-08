@@ -324,7 +324,7 @@ class Client
     /**
      * Gauges
      * @param  string $metric Metric to gauge
-     * @param  int $value Set the value of the gauge
+     * @param  int|float $value Set the value of the gauge
      * @param  array $tags A list of metric tags values
      * @return $this
      * @throws ConnectionException

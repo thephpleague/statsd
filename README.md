@@ -77,6 +77,7 @@ $statsd->increment('web.clicks', 1, 0.5);
 
 ```php
 $statsd->gauge('api.logged_in_users', 123456);
+$statsd->gauge('api.logged_in_users', 987654.321);
 ```
 
 

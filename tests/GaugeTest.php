@@ -11,4 +11,10 @@ class GaugeTest extends TestCase
         $this->assertEquals('test_metric:456|g', $this->client->getLastMessage());
     }
 
+    public function testGaugeWithFloatValue()
+    {
+        $this->client->gauge('test_metric', 456.789);
+        $this->assertEquals('test_metric:456.789|g', $this->client->getLastMessage());
+    }
+
 }
