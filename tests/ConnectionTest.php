@@ -40,7 +40,7 @@ class ConnectionTest extends TestCase
                 $handlerInvoked = true;
 
                 $testCase->assertSame(E_USER_WARNING, $errno);
-                $testCase->assertSame(
+                $testCase->assertContains(
                     'StatsD server connection failed (udp://hostdoesnotexiststalleverlol.stupidtld:8125)',
                     $errstr
                 );
