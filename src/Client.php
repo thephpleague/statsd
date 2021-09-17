@@ -204,7 +204,7 @@ class Client
      * Increment a metric
      * @param  string|array $metrics Metric(s) to increment
      * @param  int $delta Value to decrement the metric by
-     * @param  int $sampleRate Sample rate of metric
+     * @param  float|int $sampleRate Sample rate of metric
      * @param  array $tags A list of metric tags values
      * @return $this
      * @throws ConnectionException
@@ -232,7 +232,7 @@ class Client
      * Decrement a metric
      * @param  string|array $metrics Metric(s) to decrement
      * @param  int $delta Value to increment the metric by
-     * @param  int $sampleRate Sample rate of metric
+     * @param  float|int $sampleRate Sample rate of metric
      * @param  array $tags A list of metric tags values
      * @return $this
      * @throws ConnectionException
