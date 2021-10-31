@@ -2,41 +2,44 @@
 
 namespace League\StatsD\Test;
 
+use League\StatsD\Client;
+use League\StatsD\Exception\ConnectionException;
+
 class ConnectionTest extends TestCase
 {
     /**
      * Non-integer ports are not acceptable
-     * @expectedException League\StatsD\Exception\ConnectionException
      */
     public function testInvalidHost()
     {
-        $this->client->configure(array(
+        $this->expectException(ConnectionException::class);
+        $this->client->configure([
             'host' => 'hostdoesnotexiststalleverlol.stupidtld'
-        ));
+        ]);
         $this->client->increment('test');
     }
 
     public function testTimeoutSettingIsUsedWhenCreatingSocketIfProvided()
     {
-        $this->client->configure(array(
+        $client = (new TestClient())->configure([
             'host' => 'localhost',
             'timeout' => 123
-        ));
-        $this->assertAttributeSame(123, 'timeout', $this->client);
+        ]);
+        $this->assertSame((float)123, $client->getTimeout());
     }
 
     public function testCanBeConfiguredNotToThrowConnectionExceptions()
     {
-        $this->client->configure(array(
+        $this->client->configure([
             'host' => 'hostdoesnotexiststalleverlol.stupidtld',
             'throwConnectionExceptions' => false
-        ));
+        ]);
         $handlerInvoked = false;
 
         $testCase = $this;
 
         set_error_handler(
-            function ($errno, $errstr, $errfile, $errline, $errcontext) use ($testCase, &$handlerInvoked) {
+            function ($errno, $errstr, $errfile) use ($testCase, &$handlerInvoked) {
                 $handlerInvoked = true;
 
                 $testCase->assertSame(E_USER_WARNING, $errno);
@@ -57,6 +60,6 @@ class ConnectionTest extends TestCase
 
     public function testTimeoutDefaultsToPhpIniDefaultSocketTimeout()
     {
-        $this->assertAttributeSame(ini_get('default_socket_timeout'), 'timeout', $this->client);
+        $this->assertSame((float)ini_get('default_socket_timeout'), (new TestClient())->configure()->getTimeout());
     }
 }

@@ -32,18 +32,18 @@ To use the Statsd Service Provider, you must register the provider when bootstra
 
 ```php
 $statsd = new League\StatsD\Client();
-$statsd->configure(array(
+$statsd->configure([
     'host' => '127.0.0.1',
     'port' => 8125,
     'namespace' => 'example'
-));
+]);
 ```
 
 OR
 
 ```php
-$statsd1 = StatsD\Client::instance('server1')->configure(array(...));
-$statsd2 = StatsD\Client::instance('server2')->configure(array(...));
+$statsd1 = StatsD\Client::instance('server1')->configure([...]);
+$statsd2 = StatsD\Client::instance('server2')->configure([...]);
 ```
 
 The StatsD client wait for `ini_get('default_socket_timeout')` seconds when opening the socket by default. To reduce
@@ -65,10 +65,10 @@ If omitted, this option defaults to `true`.
 ```php
 $statsd->increment('web.pageview');
 $statsd->decrement('storage.remaining');
-$statsd->increment(array(
+$statsd->increment([
     'first.metric',
     'second.metric'
-), 2);
+], 2);
 $statsd->increment('web.clicks', 1, 0.5);
 ```
 
@@ -112,18 +112,18 @@ $statsd->time('api.dbcall', function () {
 
 ***Attention!** That functionality support of tags in Datadog format!*
 
-You may configure it for all the metrics sending by the client. 
+You may configure it for all the metrics sending by the client.
 
 ```php
-$statsd->configure(array(
-    'tags' => array('some_general_tag' => 'value') 
-));
+$statsd->configure([
+    'tags' => ['some_general_tag' => 'value'] 
+]);
 ```
 
 Or you may send it for a single metric.
 
 ```php
-$statsd->increment('web.clicks', 1, 1, array('host' => $_SERVER['HTTP_HOST']));
+$statsd->increment('web.clicks', 1, 1, ['host' => $_SERVER['HTTP_HOST']]);
 ```
 
 ## Framework integration
@@ -136,19 +136,19 @@ integrate it quickly with the most popular ones via included adapters.
 Find the `providers` key in your `app/config/app.php` and register the Statsd Service Provider.
 
 ```php
-    'providers' => array(
+    'providers' => [
         // ...
         'League\StatsD\Laravel\Provider\StatsdServiceProvider',
-    )
+    ]
 ```
 
 Find the `aliases` key in your `app/config/app.php` and add the Statsd Facade Alias.
 
 ```php
-    'aliases' => array(
+    'aliases' => [
         // ...
         'Statsd' => 'League\StatsD\Laravel\Facade\StatsdFacade',
-    )
+    ]
 ```
 ### Laravel 5.x
 

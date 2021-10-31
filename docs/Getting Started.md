@@ -24,11 +24,11 @@ Creating a new instance within your application is very easy.
 
 ```php
 $statsd = new League\StatsD\Client();
-$statsd->configure(array(
+$statsd->configure([
     'host' => 'localhost',
     'port' => 8125,
     'namespace' => 'ns1'
-));
+]);
 ```
 
 **Note** The namespace is optional, but recommended.

@@ -9,8 +9,7 @@ use League\StatsD\Laravel\Provider\StatsdServiceProvider;
 
 class LaravelTestCase extends TestCase
 {
-
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         if (!class_exists(Application::class)) {
@@ -22,15 +21,15 @@ class LaravelTestCase extends TestCase
     {
         $app = new Application();
         $app->instance('path', 'foobar');
-        $app->instance('files', new Filesystem);
+        $app->instance('files', new Filesystem());
         $app->instance('config', new Repository($app->getConfigLoader(), 'foobar'));
 
         if ($config) {
-            $app['config']->set('statsd', array(
+            $app['config']->set('statsd', [
                 'host' => "localhost",
                 'port' => 7890,
                 'namespace' => 'test_namespace'
-            ));
+            ]);
         }
 
         return $app;

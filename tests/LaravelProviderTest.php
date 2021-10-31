@@ -6,7 +6,6 @@ use League\StatsD\Client;
 
 class LaravelProviderTest extends LaravelTestCase
 {
-
     public function testProvider()
     {
         $app = $this->setupApplication();
@@ -23,9 +22,7 @@ class LaravelProviderTest extends LaravelTestCase
         // Make sure messages are tracked properly
         $app['statsd']->increment('test_metric');
         $this->assertEquals('test_namespace.test_metric:1|c', $app['statsd']->getLastMessage());
-
     }
-
 
     public function testProviderDefaults()
     {
@@ -40,7 +37,5 @@ class LaravelProviderTest extends LaravelTestCase
         // Make sure messages are tracked properly
         $app['statsd']->increment('test_metric', 2);
         $this->assertEquals('test_metric:2|c', $app['statsd']->getLastMessage());
-
     }
-
 }
