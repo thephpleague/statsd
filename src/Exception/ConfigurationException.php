@@ -17,7 +17,7 @@ class ConfigurationException extends \Exception implements Exception
 
     /**
      * Create new instance
-     * @param Client $instance Client instance that threw the exception
+     * @param StatsDClient $instance Client instance that threw the exception
      * @param string $message Exception message
      */
     public function __construct(StatsDClient $instance, string $message)
