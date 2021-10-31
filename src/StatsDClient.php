@@ -5,7 +5,7 @@ namespace League\StatsD;
 use League\StatsD\Exception\ConnectionException;
 
 /**
- * StatsD Client Class
+ * StatsD Client Interface
  *
  * @author Marc Qualie <marc@marcqualie.com>
  */
