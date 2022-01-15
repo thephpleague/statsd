@@ -263,12 +263,12 @@ class Client implements StatsDClient
      * Gauges
      *
      * @param string $metric Metric to gauge
-     * @param int    $value  Set the value of the gauge
+     * @param int|float $value  Set the value of the gauge
      * @param array  $tags   A list of metric tags values
      *
      * @throws ConnectionException
      */
-    public function gauge(string $metric, int $value, array $tags = []): void
+    public function gauge(string $metric, $value, array $tags = []): void
     {
         $this->send([$metric => $value . '|g'], $tags);
     }
