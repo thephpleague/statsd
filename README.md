@@ -1,6 +1,6 @@
 # StatsD PHP Library
 
-[![Build Status](https://travis-ci.org/thephpleague/statsd.png?branch=master)](https://travis-ci.org/thephpleague/statsd)
+[![Build Status](https://img.shields.io/github/workflow/status/thephpleague/statsd/CI.svg)](https://github.com/thephpleague/statsd/actions?query=workflow%3ACI+branch%3Amaster)
 [![Total Downloads](https://poser.pugx.org/league/statsd/downloads.png)](https://packagist.org/packages/league/statsd)
 [![Latest Stable Version](https://poser.pugx.org/league/statsd/v/stable.png)](https://packagist.org/packages/league/statsd)
 
