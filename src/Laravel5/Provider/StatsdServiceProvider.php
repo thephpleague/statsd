@@ -47,10 +47,11 @@ class StatsdServiceProvider extends ServiceProvider
      */
     protected function registerStatsD()
     {
-        $this->app->singleton('statsd',
+        $this->app->singleton(
+            'statsd',
             function ($app) {
                 // Set Default host and port
-                $options = array();
+                $options = [];
                 $config  = $app['config'];
 
                 if (isset($config['statsd.host'])) {
@@ -70,7 +71,7 @@ class StatsdServiceProvider extends ServiceProvider
                 }
 
                 if (isset($config['statsd.throwConnectionExceptions'])) {
-                    $options['throwConnectionExceptions'] = (boolean) $config['statsd.throwConnectionExceptions'];
+                    $options['throwConnectionExceptions'] = (bool) $config['statsd.throwConnectionExceptions'];
                 }
 
                 // Create

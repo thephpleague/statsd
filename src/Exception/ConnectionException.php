@@ -2,28 +2,25 @@
 
 namespace League\StatsD\Exception;
 
-use League\StatsD\Client;
+use League\StatsD\StatsDClient;
 
 /**
  * Connection Exception Class
  */
-class ConnectionException extends \Exception
+class ConnectionException extends \Exception implements Exception
 {
-
-
     /**
      * Client instance that threw the exception
-     * @var Client
      */
-    protected $instance;
-
+    protected StatsDClient $instance;
 
     /**
      * Create new instance
-     * @param Client $instance Client instance that threw the exception
-     * @param string $message Exception message
+     *
+     * @param StatsDClient $instance Client instance that threw the exception
+     * @param string       $message  Exception message
      */
-    public function __construct($instance, $message)
+    public function __construct(StatsDClient $instance, string $message)
     {
         $this->instance = $instance;
         parent::__construct($message);
@@ -31,9 +28,8 @@ class ConnectionException extends \Exception
 
     /**
      * Get Client instance that threw the exception
-     * @return Client Client instance
      */
-    public function getInstance()
+    public function getInstance(): StatsDClient
     {
         return $this->instance;
     }

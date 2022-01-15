@@ -12,7 +12,6 @@ use League\StatsD\Client as Statsd;
  */
 class StatsdServiceProvider extends ServiceProvider
 {
-
     /**
      * Boot the service provider.
      *
@@ -43,7 +42,7 @@ class StatsdServiceProvider extends ServiceProvider
         $this->app['statsd'] = $this->app->share(
             function ($app) {
                 // Set Default host and port
-                $options = array();
+                $options = [];
                 $config  = $app['config'];
 
                 if (isset($config['statsd.host'])) {
@@ -63,7 +62,7 @@ class StatsdServiceProvider extends ServiceProvider
                 }
 
                 if (isset($config['statsd.throwConnectionExceptions'])) {
-                    $options['throwConnectionExceptions'] = (boolean) $config['statsd.throwConnectionExceptions'];
+                    $options['throwConnectionExceptions'] = (bool) $config['statsd.throwConnectionExceptions'];
                 }
 
                 // Create

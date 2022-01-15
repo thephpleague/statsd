@@ -19,4 +19,4 @@ class LaravelFacadeTest extends LaravelTestCase
         $statsd = Statsd::instance();
         $this->assertInstanceOf(Client::class, $statsd);
     }
-} 
+}
