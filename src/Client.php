@@ -343,7 +343,12 @@ class Client implements StatsDClient
                 throw $e;
             } else {
                 trigger_error(
-                    sprintf('StatsD server connection failed (udp://%s:%d)', $this->host, $this->port),
+                    sprintf(
+                        'StatsD server connection failed (udp://%s:%d): %s',
+                        $this->host,
+                        $this->port,
+                        $e->getMessage()
+                    ),
                     E_USER_WARNING
                 );
             }
