@@ -81,7 +81,7 @@ This is the first fully stable version of StatsD library. This version has the f
  - Timing Blocks
  - 100% Code Coverage
  - Silex Service Provider
- 
+
 [unreleased]: https://github.com/thephpleague/statsd/compare/1.5.0...master
 [1.5.0]: https://github.com/thephpleague/statsd/compare/1.4.5...1.5.0
 [1.4.5]: https://github.com/thephpleague/statsd/compare/1.4.4...1.4.5

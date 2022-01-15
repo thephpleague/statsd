@@ -12,7 +12,6 @@ use League\StatsD\Client as Statsd;
  */
 class StatsdServiceProvider extends ServiceProvider
 {
-
     /**
      * Boot the service provider.
      *
