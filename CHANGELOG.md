@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com/) principles.
 
 ## [Unreleased][unreleased]
+
+## [2.0.0] - 2022-01-14
 ### Added
  - Added new `StatsDClient` interface, which `Client` now implements
  - Added new `Exception` interface, which all exceptions now implement
@@ -84,7 +86,8 @@ This is the first fully stable version of StatsD library. This version has the f
  - 100% Code Coverage
  - Silex Service Provider
 
-[unreleased]: https://github.com/thephpleague/statsd/compare/1.5.0...master
+[unreleased]: https://github.com/thephpleague/statsd/compare/2.0.0...master
+[2.0.0]: https://github.com/thephpleague/statsd/compare/1.5.0...2.0.0
 [1.5.0]: https://github.com/thephpleague/statsd/compare/1.4.5...1.5.0
 [1.4.5]: https://github.com/thephpleague/statsd/compare/1.4.4...1.4.5
 [1.4.4]: https://github.com/thephpleague/statsd/compare/1.4.3...1.4.4

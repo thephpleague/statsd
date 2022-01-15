@@ -11,19 +11,13 @@ A library for working with StatsD in PHP.
 
 ## Install
 
-Via Composer
+Via Composer:
 
-```json
-{
-    "require": {
-        "league/statsd": "1.4.*"
-    }
-}
+```shell
+composer require league/statsd
 ```
 
 To use the Statsd Service Provider, you must register the provider when bootstrapping your Laravel application.
-
-
 
 ## Usage
 
@@ -116,7 +110,7 @@ You may configure it for all the metrics sending by the client.
 
 ```php
 $statsd->configure([
-    'tags' => ['some_general_tag' => 'value'] 
+    'tags' => ['some_general_tag' => 'value']
 ]);
 ```
 
