@@ -10,6 +10,7 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com/) princi
 ### Changed
  - Supported PHP versions are now 7.4, 8.0, and 8.1
  - All properties and methods now have type hints where applicable
+ - `ConnectionException` message is now also propagated via `trigger_error()` (#57)
  - The following methods return the `StatsDClient` interface instead of `Client`:
      - `ConfigurationException::getInstance()`
      - `ConnectionException::getInstance()`
