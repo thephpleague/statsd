@@ -30,7 +30,7 @@ class Client implements StatsDClient
     /** Class namespace */
     protected string $namespace = '';
 
-    /** imeout for creating the socket connection */
+    /** Timeout for creating the socket connection */
     protected ?float $timeout = null;
 
     /** Whether an exception should be thrown on failed connections */
