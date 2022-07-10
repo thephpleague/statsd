@@ -53,6 +53,10 @@ class StatsdServiceProvider extends ServiceProvider
                 $options = [];
                 $config  = $app['config'];
 
+                if (!empty($config['statsd.scheme'])) {
+                    $options['scheme'] = $config['statsd.scheme'];
+                }
+
                 if (isset($config['statsd.host'])) {
                     $options['host'] = $config['statsd.host'];
                 }

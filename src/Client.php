@@ -18,6 +18,9 @@ class Client implements StatsDClient
     /** Instance ID */
     protected string $instanceId;
 
+    /** Server Scheme */
+    protected string $scheme = 'udp';
+
     /** Server Host */
     protected string $host = '127.0.0.1';
 
@@ -40,7 +43,7 @@ class Client implements StatsDClient
     protected array $metricTiming;
 
     /** @var resource|false|null Socket pointer for sending metrics */
-    protected $socket;
+    protected $socket = null;
 
     /** Generic tags */
     protected array $tags = [];
@@ -58,6 +61,16 @@ class Client implements StatsDClient
     }
 
     /**
+     * Forget singleton reference.
+     *
+     * @param string $name Name of the instance.
+     */
+    public static function forget(string $name = 'default'): void
+    {
+        unset(self::$instances[$name]);
+    }
+
+    /**
      * Create a new instance
      */
     public function __construct(?string $instanceId = null)
@@ -66,6 +79,26 @@ class Client implements StatsDClient
         if ($this->timeout === null) {
             $this->timeout = ini_get('default_socket_timeout');
         }
+    }
+
+    /**
+     * Destroying an instance.
+     */
+    public function __destruct()
+    {
+        if ($this->socket) {
+            fclose($this->socket);
+        }
+    }
+
+    /**
+     * Clone
+     */
+    public function __clone()
+    {
+        // Two objects should not use the same resource, or we will get into troubles after destroying of either object.
+        // So we just unset any existing socket, so it could be created again when needed.
+        $this->socket = null;
     }
 
     /**
@@ -82,13 +115,21 @@ class Client implements StatsDClient
      * @param array $options Configuration options
      *
      * @return Client This instance
-     * @throws ConfigurationException If port is invalid
+     * @throws ConfigurationException If port or scheme is invalid
      */
     public function configure(array $options = []): self
     {
+        if (isset($options['scheme'])) {
+            if (! is_string($options['scheme']) || ! in_array(strtolower($options['scheme']), ['tcp', 'udp'])) {
+                throw new ConfigurationException($this, 'Provided scheme is not supported');
+            }
+            $this->scheme = strtolower($options['scheme']);
+        }
+
         if (isset($options['host'])) {
             $this->host = $options['host'];
         }
+
         if (isset($options['port'])) {
             if (! is_numeric($options['port']) || is_float($options['port']) || $options['port'] < 0 || $options['port'] > 65535) {
                 throw new ConfigurationException($this, 'Port is out of range');
@@ -113,6 +154,16 @@ class Client implements StatsDClient
         }
 
         return $this;
+    }
+
+    /**
+     * Get server scheme
+     *
+     * @return string
+     */
+    public function getScheme(): string
+    {
+        return $this->scheme;
     }
 
     /**
@@ -332,7 +383,7 @@ class Client implements StatsDClient
      */
     protected function serializeTags(array $tags): string
     {
-        if (! is_array($tags) || count($tags) === 0) {
+        if (count($tags) === 0) {
             return '';
         }
         $data = [];
@@ -362,7 +413,7 @@ class Client implements StatsDClient
             foreach ($data as $key => $value) {
                 $messages[] = $prefix . $key . ':' . $value . $tagsData;
             }
-            $this->message = implode("\n", $messages);
+            $this->message = implode("\n", $messages) . ($this->scheme === 'tcp' ? "\n" : '');
             @fwrite($socket, $this->message);
             fflush($socket);
         } catch (ConnectionException $e) {
@@ -371,7 +422,8 @@ class Client implements StatsDClient
             } else {
                 trigger_error(
                     sprintf(
-                        'StatsD server connection failed (udp://%s:%d): %s',
+                        'StatsD server connection failed (%s://%s:%d): %s',
+                        $this->scheme,
                         $this->host,
                         $this->port,
                         $e->getMessage()
