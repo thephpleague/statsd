@@ -5,7 +5,7 @@
 [![Latest Stable Version](https://poser.pugx.org/league/statsd/v/stable.png)](https://packagist.org/packages/league/statsd)
 
 
-A library for working with StatsD in PHP.
+A framework-agnostic library for working with StatsD in PHP.
 
 
 
@@ -53,6 +53,23 @@ to disable these exceptions and log a PHP warning instead if you wish. To do so,
 If omitted, this option defaults to `true`.
 
 
+### Configuring to use TCP
+
+***Attention!** With a TCP port your application will slow down. Use it if you know what you are doing.*
+
+By default, StatsD client use UDP port. In most cases you won't need anything else. But it's also possible to use
+TCP port. Just provide the desired scheme name in your configuration.
+
+```php
+$statsd = new League\StatsD\Client();
+$statsd->configure([
+    'scheme' => 'tcp',
+    'host' => '127.0.0.1',
+    'port' => 8125
+]);
+```
+
+TCP connection allows you to send a huge bunches of metrics in single call. It also has delivery guarantees.
 
 ### Counters
 
@@ -144,7 +161,7 @@ Find the `aliases` key in your `app/config/app.php` and add the Statsd Facade Al
         'Statsd' => 'League\StatsD\Laravel\Facade\StatsdFacade',
     ]
 ```
-### Laravel 5.x
+### Laravel 5.x and greater
 
 If you are using Laravel `>=5.5`, statsd uses [package discovery](https://laravel.com/docs/5.5/packages#package-discovery) to automatically register the service provider and facade.
 
@@ -185,6 +202,7 @@ Package Configuration
 In your `.env` file, add the configuration:
 
 ```php
+STATSD_SCHEME=udp
 STATSD_HOST=127.0.0.1
 STATSD_PORT=8125
 STATSD_NAMESPACE=

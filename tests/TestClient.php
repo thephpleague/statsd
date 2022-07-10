@@ -8,4 +8,9 @@ class TestClient extends \League\StatsD\Client
     {
         return $this->timeout;
     }
+
+    public function getSocketProperty()
+    {
+        return $this->socket;
+    }
 }

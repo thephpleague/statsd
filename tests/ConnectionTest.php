@@ -2,7 +2,6 @@
 
 namespace League\StatsD\Test;
 
-use League\StatsD\Client;
 use League\StatsD\Exception\ConnectionException;
 
 class ConnectionTest extends TestCase
@@ -61,5 +60,26 @@ class ConnectionTest extends TestCase
     public function testTimeoutDefaultsToPhpIniDefaultSocketTimeout()
     {
         $this->assertSame((float)ini_get('default_socket_timeout'), (new TestClient())->configure()->getTimeout());
+    }
+
+    public function testDestructorMustCloseConnection()
+    {
+        $client1 = new TestClient();
+        $client1->increment('test_metric');
+        $socket = $client1->getSocketProperty();
+        $this->assertTrue(is_resource($socket));
+        unset($client1);
+        $this->assertFalse(is_resource($socket));
+    }
+
+    public function testClonedObjectShouldNotUseTheSameConnection()
+    {
+        $client1 = (new TestClient())->configure();
+        $client1->increment('test_metric');
+        $socket1 = $client1->getSocketProperty();
+        $this->assertTrue(is_resource($socket1));
+        $client2 = clone $client1;
+        $socket2 = $client2->getSocketProperty();
+        $this->assertFalse($socket1 === $socket2);
     }
 }
