@@ -68,6 +68,9 @@ class Client implements StatsDClient
         }
     }
 
+    /**
+     * String representation of the instance
+     */
     public function __toString(): string
     {
         return 'StatsD\Client::[' . $this->instanceId . ']';
@@ -112,16 +115,31 @@ class Client implements StatsDClient
         return $this;
     }
 
+    /**
+     * Get server host
+     *
+     * @return string
+     */
     public function getHost(): string
     {
         return $this->host;
     }
 
+    /**
+     * Get server port
+     *
+     * @return int
+     */
     public function getPort(): int
     {
         return $this->port;
     }
 
+    /**
+     * Get metrics namespace
+     *
+     * @return string
+     */
     public function getNamespace(): string
     {
         return $this->namespace;
@@ -169,7 +187,7 @@ class Client implements StatsDClient
      *
      * @param string|array $metrics    Metric(s) to decrement
      * @param int          $delta      Value to increment the metric by
-     * @param float          $sampleRate Sample rate of metric
+     * @param float        $sampleRate Sample rate of metric
      * @param array        $tags       A list of metric tags values
      *
      * @throws ConnectionException
@@ -258,13 +276,12 @@ class Client implements StatsDClient
         $this->timing($metric, $time, $tags);
     }
 
-
     /**
      * Gauges
      *
-     * @param string $metric Metric to gauge
+     * @param string    $metric Metric to gauge
      * @param int|float $value  Set the value of the gauge
-     * @param array  $tags   A list of metric tags values
+     * @param array     $tags   A list of metric tags values
      *
      * @throws ConnectionException
      */
@@ -276,9 +293,9 @@ class Client implements StatsDClient
     /**
      * Sets - count the number of unique values passed to a key
      *
-     * @param string $metric
-     * @param mixed $value
-     * @param array $tags A list of metric tags values
+     * @param string $metric Metric name
+     * @param mixed  $value  Value to count
+     * @param array  $tags   A list of metric tags values
      *
      * @throws ConnectionException
      */
@@ -288,13 +305,16 @@ class Client implements StatsDClient
     }
 
     /**
-     * @return resource
-     * @throws ConnectionException
+     * Get stream to server
+     *
+     * @return resource File pointer representing the connection to the server
+     *
+     * @throws ConnectionException If there is a connection problem with the host
      */
     protected function getSocket()
     {
         if (! $this->socket) {
-            $this->socket = @fsockopen('udp://' . $this->host, $this->port, $errno, $errstr, $this->timeout);
+            $this->socket = @fsockopen($this->scheme . '://' . $this->host, $this->port, $errno, $errstr, $this->timeout);
             if (! $this->socket) {
                 throw new ConnectionException($this, '(' . $errno . ') ' . $errstr);
             }
@@ -303,6 +323,13 @@ class Client implements StatsDClient
         return $this->socket;
     }
 
+    /**
+     * Serialize tags
+     *
+     * @param array $tags A list of tags to send to the server
+     *
+     * @return string A string containing a Datadog formatted tags
+     */
     protected function serializeTags(array $tags): string
     {
         if (! is_array($tags) || count($tags) === 0) {
